@@ -39,7 +39,7 @@
                         <a class="h6 mb-0" href="#!">Mario Brother</a>
                         <p class="mb-0 small text-truncate">@Mario</p>
                     </div>
-                    <a class="btn btn-primary-soft rounded-circle icon-md ms-auto" href="#"><i class="fa-solid fa-plus"> </i></a>
+                    <a class="btn btn-primary-soft rounded-circle icon-md ms-auto" href="#"><i class="bi bi-plus-lg"> </i></a>
                 </div>
                 <div class="d-grid mt-3">
                     <a class="btn btn-sm btn-primary-soft" href="#!">Show More</a>

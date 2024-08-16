@@ -29,13 +29,13 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                     <div class="form-group">
                         <strong>Description:</strong>
-                        <textarea class="form-control" style="height:150px" name="description" placeholder="Descripción..." required></textarea>
+                        <textarea class="form-control" style="height:150px" name="description" placeholder="Descripción..." ></textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
                     <div class="form-group">
                         <strong>Image:</strong>
-                        <input type="file" name="image" class="form-control">
+                        <input type="file" name="image" class="form-control" accept="image/*" required>
                     </div>
                 </div>
 

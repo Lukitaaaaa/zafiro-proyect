@@ -11,7 +11,7 @@
                 <p>99999 seguidores</p>
                 <p>0 seguidos</p>
             </div>
-            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam libero soluta, ad dolorum corporis accusantium animi quisquam. Delectus nisi deserunt explicabo omnis ullam, eveniet, fuga, odio quo ipsum aperiam doloremque enim maiores possimus eius. Culpa, sunt rem? Sint pariatur commodi quasi.</p>
+            <p class="description text-break">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam libero soluta, ad dolorum corporis accusantium animi quisquam. Delectus nisi deserunt explicabo omnis ullam, eveniet, fuga, odio quo ipsum aperiam doloremque enim maiores possimus eius. Culpa, sunt rem? Sint pariatur commodi quasi.</p>
         </div>
         
     </div>

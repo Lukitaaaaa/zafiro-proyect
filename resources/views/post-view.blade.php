@@ -12,21 +12,21 @@
                     <form action="{{route('posts.update', $post)}}" method="POST" class="mb-auto position-relative d-flex">
                         @csrf
                         @method('PUT')
-                        <textarea name="description" id="description" cols="30" rows="5" class=" w-75 fs-2">{{$post->description}}</textarea>
+                        <textarea name="description" id="description" cols="30" rows="5" class=" w-75 fs-3">{{$post->description}}</textarea>
                         <div class="position-absolute end-0 mt-3">
                             <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 @else 
-                    <span class="mb-auto fs-2 w-75">{{$post->description}}</span>   
+                    <span class="mb-auto fs-3 w-75 text-break">{{$post->description}}</span>   
                     <div class="position-absolute end-0 mt-3">
                         <div class="d-flex flex-column row-gap-3">
                             <a href="{{route('profile')}}" class="btn btn-primary">Close</a>
                             <a href="{{route('posts.edit', $post)}}" class="btn btn-warning">Edit</a>
-                            <form action="{{route('posts.destroy', $post)}}" method="post">
+                            <form id="form_{{$post->id}}" action="{{route('posts.destroy', $post)}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Remove</button>
+                                <button type="submit" class="btn btn-danger" {{--data-bs-toggle="modal" data-bs-target="#modalConfirmation"--}}>Remove</button>
                             </form>
                         </div>
                     </div>
@@ -48,4 +48,24 @@
         </div>
     </div>
 </main>
+{{-- <div class="modal" tabindex="-1" id="modalConfirmation">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">¿Are you sure to delete this post?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" id="btnEliminar">Yes, i sure</button>
+        </div>
+      </div>
+    </div>
+</div> --}}
 @endsection
+{{-- @section('js')
+    @vite(['resources/js/Posts/index.js'])
+@endsection --}}

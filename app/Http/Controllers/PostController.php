@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -32,7 +33,7 @@ class PostController extends Controller
 
         //dd($request->all());
         $request->validate([
-            'description'=> 'required|max:1040',
+            'description'=> 'max:6096',
             'image'=> 'required|image',
         ]);
         $post = Post::create($request->all());
@@ -71,7 +72,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate([
-            'description'=>'required|max:1040'
+            'description'=>'string|max:1040|nullable'
         ]);
 
         $post->update($request->all());
@@ -84,6 +85,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        Storage::disk('public')->delete($post->image);
         $post->delete();
         return redirect()->route('profile');
     }
