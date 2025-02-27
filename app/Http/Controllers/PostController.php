@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -28,21 +30,21 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request):RedirectResponse
     {
 
-        //dd($request->all());
+        //dd($request->image);
         $request->validate([
-            'description'=> 'max:6096',
-            'image'=> 'required|image',
+            'description'=> 'max:100096',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
         $post = Post::create($request->all());
 
         if($request->hasFile('image')){
-            $name = $post->id.'.'.$request->file('image')->getClientOriginalExtension();
+            $name = Str::uuid().'.'.$request->file('image')->getClientOriginalExtension();
             $img = $request->file('image')->storeAs('public/img',$name);
             $post->image = '/img/'.$name;
-            $post->save();
+            $post->save($name, 60);
         }
 
         return redirect()->route('profile');

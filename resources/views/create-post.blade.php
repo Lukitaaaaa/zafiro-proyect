@@ -11,10 +11,9 @@
                 <a href="#" class="btn btn-primary">Volver</a>
             </div>
         </div>
-    
+        
         @if ($errors->any())
             <div class="alert alert-danger mt-2">
-                <strong>Por las chanclas de mi madre!</strong> Algo fue mal..<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -35,7 +34,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
                     <div class="form-group">
                         <strong>Image:</strong>
-                        <input type="file" name="image" class="form-control" accept="image/*" required>
+                        <input type="file" name="image" class="form-control" accept="image/*">
                     </div>
                 </div>
 
