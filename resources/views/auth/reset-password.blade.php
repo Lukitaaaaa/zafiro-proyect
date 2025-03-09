@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="form w-100 border border-secondary rounded p-4" >
-    <form action="{{route('password.update')}}" method="POST">
+    <form action="{{route('auth.password.update')}}" method="POST">
         @csrf
 
         <h1 class="text-center mt-3 mb-3">Recovery Password</h1>

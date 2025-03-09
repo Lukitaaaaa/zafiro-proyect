@@ -1,3 +1,8 @@
+@props([
+    'name' => '',
+    'username' => '',
+    'image' => null
+])
 <div class="banner position-fixed top-0">
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 240px; height: 100vh; background-color: black!important;">
         <a href="/" class="mb-md-0 text-center text-white text-decoration-none">
@@ -6,7 +11,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{{route('home')}}" class="nav-link text-white d-flex align-items-center justify-content-start " aria-current="page">
+                <a href="{{route('dashboard.home')}}" class="nav-link text-white d-flex align-items-center justify-content-start " aria-current="page">
                     <i class="bi bi-house-door me-2"></i>
                     Home
                 </a>
@@ -24,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('posts.create')}}" class="nav-link text-white d-flex align-items-center justify-content-start">
+                <a href="{{route('dashboard.posts.create')}}" class="nav-link text-white d-flex align-items-center justify-content-start">
                     <i class="bi bi-plus-lg me-2"></i>
                     Post
                 </a>
@@ -41,14 +46,23 @@
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
             <div class="d-flex flex-column">
-                <strong class="name" style="font-size: smaller;">Lucas Gallardo</strong>
-                <strong class="username" style="font-size: small;">@lukita</strong>
+                <strong class="name" style="font-size: smaller;">{{$name}}</strong>
+                <strong class="username" style="font-size: small;">{{$username}}</strong>
             </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" href="{{route('profile')}}">Profile</a></li>
+            <li><a class="dropdown-item" href="{{route('dashboard.profile')}}">Profile</a></li>
+            {{-- TODO: VER COMO CARAJOP HACER PARA QUE NO ENTREN AL HOME POR LA RUTA --}}
+            @auth
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li>
+                {{-- <a class="dropdown-item" href="#">Sign out</a> --}}
+                <form action="{{route('auth.logout')}}" method="POST">
+                    @csrf
+                    <button class="dropdown-item" type="submit">logout</button>
+                </form>
+            </li>
+            @endauth
             </ul>
         </div>
     </div>

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}</title>
+    {{-- <link rel="icon" href="{{asset('images/zafiro-logo.png')}}"> --}}
     <link rel="stylesheet" href=".../css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
@@ -50,7 +51,8 @@
 </head>
 <body >
     <div class="d-flex">
-        @include('layout.banner')
+        {{-- @include('layout.banner') --}}
+        <x-banner :name="auth()->user()->name" :username="auth()->user()->username"/>
         @yield('content')
 
     </div>

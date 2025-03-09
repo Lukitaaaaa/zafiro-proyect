@@ -11,6 +11,6 @@
                 <p class="m-0">0</p>
             </div>
         </div>
-        <a class="btn btn-primary" href="{{route('posts.show', $post)}}"><i class="bi bi-eye"></i></a>
+        <a class="btn btn-primary" href="{{route('dashboard.posts.show', $post)}}"><i class="bi bi-eye"></i></a>
     </div>
 </div>

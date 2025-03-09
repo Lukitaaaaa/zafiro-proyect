@@ -24,12 +24,13 @@ class LoginController extends Controller implements HasMiddleware
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            return redirect()->intended('dashboard');
+            return redirect()->intended('home');
         }
  
         return back()->withErrors([
             'email' => 'Este usuario no se encuentra registrado.',
-        ])->onlyInput('email');
+            'password' => 'Contraseña incorrecta.'
+        ])->onlyInput('email', 'password');
     }
 
     public function logout(Request $request){

@@ -9,7 +9,7 @@
             <img src="/storage/{{$post->image}}" class="object-fit-cover" width="285" height="285">
             <div class="ms-3 d-flex flex-column position-relative" style="width: 100%;">
                 @if ($editing)
-                    <form action="{{route('posts.update', $post)}}" method="POST" class="mb-auto position-relative d-flex">
+                    <form action="{{route('dashboard.posts.update', $post)}}" method="POST" class="mb-auto position-relative d-flex">
                         @csrf
                         @method('PUT')
                         <textarea name="description" id="description" cols="30" rows="5" class=" w-75 fs-3">{{$post->description}}</textarea>
@@ -22,8 +22,8 @@
                     <div class="position-absolute end-0 mt-3">
                         <div class="d-flex flex-column row-gap-3">
                             <a href="{{route('profile')}}" class="btn btn-primary">Close</a>
-                            <a href="{{route('posts.edit', $post)}}" class="btn btn-warning">Edit</a>
-                            <form id="form_{{$post->id}}" action="{{route('posts.destroy', $post)}}" method="post">
+                            <a href="{{route('dashboard.posts.edit', $post)}}" class="btn btn-warning">Edit</a>
+                            <form id="form_{{$post->id}}" action="{{route('dashboard.posts.destroy', $post)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" {{--data-bs-toggle="modal" data-bs-target="#modalConfirmation"--}}>Remove</button>
