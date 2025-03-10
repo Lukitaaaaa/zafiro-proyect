@@ -1,7 +1,7 @@
 <div class="container mb-3">
     <div class="row">
         <div class="col-4 d-flex flex-column align-items-center">
-            <img src="https://github.com/mdo.png" alt="profile-image" class="rounded-circle mb-4" width="150">
+            <img src="{{auth()->user()->image}}" alt="{{auth()->user()->name}}" class="rounded-circle mb-4" width="150" height="150">
             <a class="btn btn-primary w-50" href="{{route('dashboard.profile.edit')}}">Edit</a>
         </div>
         <div class="col-8 d-flex flex-column">

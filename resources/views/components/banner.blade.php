@@ -1,7 +1,7 @@
 @props([
     'name' => '',
     'username' => '',
-    'image' => null
+    'image' => ''
 ])
 <div class="banner position-fixed top-0">
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 240px; height: 100vh; background-color: black!important;">
@@ -44,7 +44,7 @@
         <hr>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+            <img src="{{$image}}" alt="{{$name}}" width="32" height="32" class="rounded-circle me-2">
             <div class="d-flex flex-column">
                 <strong class="name" style="font-size: smaller;">{{$name}}</strong>
                 <strong class="username" style="font-size: small;">{{$username}}</strong>

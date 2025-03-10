@@ -38,6 +38,7 @@ class UpdateProfileRequest extends FormRequest
             'username.max' => 'El nombre de usuario no debe exceder los 30 caracteres.',
             'username.unique' => 'El nombre de usuario ya está en uso.',
             'bio.max' => 'La biografía no debe exceder los 255 caracteres.',
+            'image'     => 'required|image|max:2048',
         ];
     }
     protected function prepareForValidation()

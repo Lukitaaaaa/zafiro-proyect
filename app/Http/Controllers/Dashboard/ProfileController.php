@@ -9,7 +9,7 @@ use App\Http\Requests\Dashboard\UpdateProfileRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -34,7 +34,9 @@ class ProfileController extends Controller
 
     public function update(UpdateProfileRequest $request){
         $data = $request->safe()->except('image');
-
+        if($request->hasFile('image')){
+            $data['image'] = Storage::disk('users')->put('users', $request->file('image'));
+        }
         $user = auth()->user()->update($data);
 
         return view('dashboard.profile', [
