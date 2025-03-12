@@ -33,22 +33,26 @@ class PostController extends Controller
      */
     public function store(Request $request):RedirectResponse
     {
-
-        //dd($request->image);
+        //dd($request->all());
         $request->validate([
             'description'=> 'max:100096',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
-        $post = Post::create($request->all());
 
+        $request['user_id'] = auth()->id();
+        
+        $post = Post::create($request->all());
+        
+        
         if($request->hasFile('image')){
             $name = Str::uuid().'.'.$request->file('image')->getClientOriginalExtension();
             $img = $request->file('image')->storeAs('public/img',$name);
             $post->image = '/img/'.$name;
-            $post->save($name, 60);
+            $post->save();
         }
-
-        return redirect()->route('profile');
+        
+        //dd($request->all());
+        return redirect()->route('dashboard.profile');
     }
 
     /**

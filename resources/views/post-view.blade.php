@@ -21,7 +21,7 @@
                     <span class="mb-auto fs-3 w-75 text-break">{{$post->description}}</span>   
                     <div class="position-absolute end-0 mt-3">
                         <div class="d-flex flex-column row-gap-3">
-                            <a href="{{route('profile')}}" class="btn btn-primary">Close</a>
+                            <a href="{{route('dashboard.profile')}}" class="btn btn-primary">Close</a>
                             <a href="{{route('dashboard.posts.edit', $post)}}" class="btn btn-warning">Edit</a>
                             <form id="form_{{$post->id}}" action="{{route('dashboard.posts.destroy', $post)}}" method="post">
                                 @csrf

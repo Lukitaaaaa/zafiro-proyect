@@ -44,10 +44,10 @@
         <hr>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{$image}}" alt="{{$name}}" width="32" height="32" class="rounded-circle me-2">
+            <img src="{{$image}}" alt="{{$name}}" width="32" height="32" class="object-fit-cover rounded-circle me-2">
             <div class="d-flex flex-column">
                 <strong class="name" style="font-size: smaller;">{{$name}}</strong>
-                <strong class="username" style="font-size: small;">{{$username}}</strong>
+                <strong class="username" style="font-size: small;"><span>@</span>{{$username}}</strong>
             </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">

@@ -11,6 +11,10 @@
                 <p class="m-0">0</p>
             </div>
         </div>
-        <a class="btn btn-primary" href="{{route('dashboard.posts.show', $post)}}"><i class="bi bi-eye"></i></a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="bi bi-eye"></i>
+        </button>
+        {{-- <a class="btn btn-primary" href="{{route('dashboard.posts.show', $post)}}"><i class="bi bi-eye"></i></a> --}}
     </div>
 </div>
+<x-post.post-modal :description="$post->description" :image="$post->image" :created="$post->created_at"/>

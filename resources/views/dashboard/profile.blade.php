@@ -9,8 +9,8 @@
             <div class="row row-cols-2 row-cols-md-3 gap-2 mx-auto">
                 @foreach ($posts as $post)
                     <div class="columna col">
-                        <p>{{$post->user_id}}</p>
-                        {{-- @include('components.post-card')     --}}
+                        {{-- <p>{{$post->user_id}}</p> --}}
+                        @include('components.post-card')    
                     </div>
                 @endforeach         
             </div>
