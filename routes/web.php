@@ -10,6 +10,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\PostController;
 
+Route::redirect('/', '/home');
+
 Route::name('auth.')->group(function(){
 
     Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('index');

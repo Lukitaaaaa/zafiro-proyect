@@ -17,7 +17,7 @@
 
 </style>
 <main class=" w-100 py-3" style="margin-left: 240px!important;">
-    <div class="mx-auto" style="width: 500px;">
+    <div class="mx-auto border border-4 rounded-4 p-3" style="width: 500px; background-color: black;">
         <h3 class="text-center mb-3">Edit profile</h3>
         <form action="{{route('dashboard.profile.update', $user)}}" method="POST" enctype="multipart/form-data" class="d-flex flex-column">
             @csrf
@@ -35,10 +35,11 @@
             <x-form.input label="Name" type="text" id="name" name="name" :required="true" :value="$user->name"/>
             <x-form.input label="Username" type="text" id="username" name="username" :required="true" :value="$user->username"/>
 
-            <div class="mb-2">
+            <x-form.text-area label="Presentation" id="bio" name="bio" rows="2"/>
+            {{-- <div class="mb-2">
                 <label for="exampleFormControlTextarea1" class="form-label">Presentation</label>
                 <textarea class="form-control" name="bio" id="bio" rows="3">{{$user->bio}}</textarea>
-            </div>
+            </div> --}}
 
             <button type="submit" class="btn btn-primary w-100 mt-4">Update</button>
         </form>

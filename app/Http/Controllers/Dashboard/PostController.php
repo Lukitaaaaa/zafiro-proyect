@@ -79,7 +79,7 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate([
-            'description'=>'string|max:1040|nullable'
+            'description'=>'string|max:255|nullable'
         ]);
 
         $post->update($request->all());

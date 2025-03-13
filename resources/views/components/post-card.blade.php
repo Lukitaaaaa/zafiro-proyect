@@ -1,5 +1,5 @@
-<div class="card rounded-0 border-0 post-container position-relative ">
-    <img src="/storage/{{$post->image}}" class="card-img-top rounded-0 object-fit-cover" alt="..." width="285" height="285" style="outline: none">
+<div class="card rounded-0 border-0 post-container position-relative">
+    <img src="/storage/{{$post->image}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
     <div class="overlay">
         <div class="interations-container d-flex">
             <div class="likes d-flex  column-gap-2 me-4 align-items-center">
@@ -11,10 +11,11 @@
                 <p class="m-0">0</p>
             </div>
         </div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        
+        {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="bi bi-eye"></i>
-        </button>
-        {{-- <a class="btn btn-primary" href="{{route('dashboard.posts.show', $post)}}"><i class="bi bi-eye"></i></a> --}}
+        </button> --}}
     </div>
+    <a class="w-100 h-100 position-absolute" href="{{route('dashboard.posts.show', $post)}}"></a>
 </div>
-<x-post.post-modal :description="$post->description" :image="$post->image" :created="$post->created_at"/>
+{{-- <x-post.post-modal :description="$post->description" :image="$post->image" :created="$post->created_at"/> --}}
