@@ -22,14 +22,14 @@ class ProfileController extends Controller
 
         // $post->save();
         $posts = Post::where('user_id', Auth::user()->id)->orderBy('created_at','DESC')->get();
-        return view('dashboard.profile', [
+        return view('dashboard.profile.index', [
             'posts' => $posts
         ]);
 
     }
 
     public function edit(){
-        return view('dashboard.edit-profile', ['user' => Auth::user()]);
+        return view('dashboard.profile.edit', ['user' => Auth::user()]);
     }
 
     public function update(UpdateProfileRequest $request){
@@ -39,7 +39,7 @@ class ProfileController extends Controller
         }
         $user = auth()->user()->update($data);
 
-        return view('dashboard.profile', [
+        return view('dashboard.profile.index', [
             'posts' => Post::where('user_id', Auth::user()->id)->orderBy('created_at','DESC')->get(),
             'user' => $user
         ]);

@@ -2,8 +2,8 @@
 
 @section('content')
 <main class=" w-100 py-5" style="margin-left: 240px!important;">
-    <div class="mt-3 mx-auto d-flex border border rounded-4 p-3" style="width: 895px; background-color: black;">
-        <img src="/storage/{{$post->image}}" class="object-fit-cover" width="285" height="285">
+    <div class="mx-auto d-flex border rounded-4 p-3" style="width: 895px; background-color: black;">
+        <img src="/storage/{{$post->image}}" alt="Imagen de un post" class="object-fit-cover" width="285" height="285">
         <div class="ms-3 d-flex flex-column position-relative w-75">
             <div class="mb-3 d-flex gap-3">
                 <img 
@@ -58,6 +58,44 @@
             </div>
         </div>
     </div>
+    <div class="w-full border mt-3 mx-auto" style="width: 895px; background-color: black;">
+        <h2 class="text-center">Comments</h2>
 
+        {{-- input-add-comment --}}
+        <form action="" method="POST" class="d-flex justify-content-between p-3 border-bottom" >
+            @csrf
+            <input type="text" class="form-control" placeholder="Write a comment" style="width: 80%;">
+            <button class="btn btn-primary">Add comment</button>
+        </form>
+        {{-- comments --}}
+        <article class="d-flex flex-column border-bottom">
+            {{-- foreach --}}
+            <div class="d-flex justify-content-between align-items-center" style="padding: .5rem 75px">
+                <div class="d-block">
+                    <img 
+                        src="{{auth()->user()->image}}" 
+                        alt="{{auth()->user()->name}}"
+                        width="32" 
+                        height="32" 
+                        class="object-fit-cover rounded-circle"
+                        style="margin-right: 10px"
+                    >
+                    <span>@user</span>
+                </div>
+                <button type="button" class="rounded-circle btn btn-primary">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                {{-- <i class="bi bi-heart"></i> --}}
+            </div>
+            <div class="d-flex" style="padding: 0 75px;">
+                <div style="width: 44px; height: 10px"></div>
+                <p style="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</p>
+            </div>
+            
+            {{-- @empty($comments)
+                <p class="text-center">No comments</p> --}}
+        </article>
+        
+    </div>
 </main>
 @endsection

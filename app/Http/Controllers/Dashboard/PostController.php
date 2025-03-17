@@ -24,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('create-post');
+        return view('dashboard.post.create-post');
         
     }
 
@@ -61,7 +61,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $editing = false;
-        return view('post-view', compact('post', 'editing'));
+        return view('dashboard.post.post-view', compact('post', 'editing'));
     }
 
     /**
@@ -70,7 +70,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $editing = true;
-        return view('post-view', compact('post', 'editing'));
+        return view('dashboard.post.post-view', compact('post', 'editing'));
     }
 
     /**
@@ -84,7 +84,7 @@ class PostController extends Controller
 
         $post->update($request->all());
         $editing = false;
-        return view('post-view', compact('post', 'editing'));
+        return view('dashboard.post.post-view', compact('post', 'editing'));
     }
 
     /**
@@ -94,6 +94,6 @@ class PostController extends Controller
     {
         Storage::disk('public')->delete($post->image);
         $post->delete();
-        return redirect()->route('profile');
+        return redirect()->route('dashboard.profile');
     }
 }

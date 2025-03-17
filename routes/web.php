@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-
+use App\Http\Controllers\Dashboard\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\PostController;
@@ -35,17 +35,18 @@ Route::name('auth.')->group(function(){
 Route::name('dashboard.')->middleware('auth')->group(function(){
 
     Route::get('/home', [HomeController::class, 'index'])->name('home'); 
-    Route::resource('posts', PostController::class);
-
+    
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    
+    Route::resource('/posts', PostController::class);
 
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
 
 
-Route::get('/dashboard', fn () => view('welcome'))->name('dashboard');
 
 
 

@@ -1,7 +1,8 @@
-![banner](public/images/logo-zafiro.png)
+<p align="center"><img  width="256" src="public/images/logo-zafiro.png"/></p>
+
 # Zafiro Project
 
-Zafiro Project es una red social que permite a los usuarios registrarse, iniciar sesión, crear publicaciones, y editar su perfil. Este proyecto está construido con Laravel, un framework de PHP.
+Zafiro Project es una red social que permite a los usuarios registrarse, iniciar sesión, crear publicaciones, y editar su perfil. Este proyecto está construido con Laravel, un framework de PHP y Bootstrap.
 
 ## Descripción
 
@@ -16,7 +17,7 @@ Zafiro Project es una aplicación web que proporciona una plataforma para que lo
 
 Sigue estos pasos para instalar y configurar el proyecto en tu máquina local:
 
-- `git clone https://github.com/tu-usuario/zafiro-proyect.git`
+- `git clone https://github.com/Lukitaaaaa/zafiro-proyect.git`
 - `cd zafiro-proyect`
 - `composer install`
 - `cp .env.example .env`
