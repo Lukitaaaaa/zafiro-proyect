@@ -5,6 +5,11 @@
     .menu-comments{
         border: none;
         background: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        text-align: center;
         height: 32px;
         width: 32px;
         padding: 10px;
@@ -23,15 +28,38 @@
     <div class="mx-auto d-flex border rounded-4 p-3" style="width: 895px; background-color: black;">
         <img src="/storage/{{$post->image}}" alt="Imagen de un post" class="object-fit-cover" width="285" height="285">
         <div class="ms-3 d-flex flex-column position-relative w-75">
-            <div class="mb-3 d-flex gap-3">
-                <img 
-                    src="{{auth()->user()->image}}" 
-                    alt="{{auth()->user()->name}}"
-                    width="32" 
-                    height="32" 
-                    class="object-fit-cover rounded-circle"
-                >
-                <span class="fs-5">@user</span>
+            <div class="mb-3 d-flex justify-content-between">
+                <div class="d-flex gap-3">
+
+                    <img 
+                        src="{{ $post->user->image }}" 
+                        alt="{{ $post->user->name }}"
+                        width="32" 
+                        height="32" 
+                        class="object-fit-cover rounded-circle"
+                    >
+                    <span class="fs-5"> {{ '@' . $post->user->username }}</span>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="menu-comments" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                    
+                        @if(auth()->user()->id === $post->user->id)
+                            <a href="{{route('dashboard.posts.edit', $post)}}" class="dropdown-item">Edit</a>
+                            <li>
+                                <form action="{{route('dashboard.posts.destroy', $post)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="dropdown-item text-danger">Remove</button>
+                                </form>
+                            </li>
+                        @else
+                            <li><a class="dropdown-item" href="#">Report</a></li>
+                        @endif
+                    </ul>
+                </div>
             </div>
             @if ($editing)
                 <form action="{{route('dashboard.posts.update', $post)}}" method="POST" class="mb-auto position-relative d-flex">
@@ -46,7 +74,7 @@
                 </form>
             @else 
                 <span class="mb-auto fs-3 w-75 text-break">{{$post->description}}</span>   
-                <div class="position-absolute end-0 mt-3">
+                {{-- <div class="position-absolute end-0 mt-3">
                     <div class="d-flex flex-column row-gap-3">
                         <a href="{{route('dashboard.profile')}}" class="btn btn-primary">Close</a>
                         @if(auth()->user()->id === $post->user_id)
@@ -58,7 +86,7 @@
                             </form>
                         @endif
                     </div>
-                </div>
+                </div> --}}
             @endif
             <div class="d-flex justify-content-between">
                 <div class="d-flex column-gap-4">
@@ -88,8 +116,8 @@
             <article class="d-flex border-bottom overflow-hidden" style="padding: .5rem 75px">
                 <div class="me-3">
                     <img 
-                        src="{{auth()->user()->image}}" 
-                        alt="{{auth()->user()->name}}"
+                        src="{{ $comment->user->image }}" 
+                        alt="{{ $comment->user->name }}"
                         width="32" 
                         height="32" 
                         class="object-fit-cover rounded-circle"
@@ -98,7 +126,7 @@
                 <div class="d-grid w-100"> 
                     <header class="d-flex justify-content-between align-items-center" style="height: 32px;">
                         <div class="d-block">
-                            <span class="text-primary">@user</span>
+                            <span class="text-primary">{{ '@' . $comment->user->username }}</span>
                         </div>
                         <div class="d-flex align-items-center column-gap-2">
                             <span>2 horas</span>

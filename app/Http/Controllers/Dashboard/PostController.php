@@ -60,6 +60,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $post->load('comments.user');
+        $post->load('user');
         $editing = false;
         return view('dashboard.post.post-view', compact('post', 'editing'));
     }
