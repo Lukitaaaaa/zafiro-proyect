@@ -1,6 +1,24 @@
 @extends('layout.layout')
 
 @section('content')
+<style>
+    .menu-comments{
+        border: none;
+        background: none;
+        height: 32px;
+        width: 32px;
+        padding: 10px;
+        border-radius: 50%; 
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+ 
+    .menu-comments:hover{
+        background-color: rgb(140, 140, 140, 0.1);
+    }
+</style>
+
 <main class=" w-100 py-5" style="margin-left: 240px!important;">
     <div class="mx-auto d-flex border rounded-4 p-3" style="width: 895px; background-color: black;">
         <img src="/storage/{{$post->image}}" alt="Imagen de un post" class="object-fit-cover" width="285" height="285">
@@ -32,7 +50,6 @@
                     <div class="d-flex flex-column row-gap-3">
                         <a href="{{route('dashboard.profile')}}" class="btn btn-primary">Close</a>
                         @if(auth()->user()->id === $post->user_id)
-
                             <a href="{{route('dashboard.posts.edit', $post)}}" class="btn btn-warning">Edit</a>
                             <form id="form_{{$post->id}}" action="{{route('dashboard.posts.destroy', $post)}}" method="post">
                                 @csrf
@@ -59,43 +76,74 @@
         </div>
     </div>
     <div class="w-full border mt-3 mx-auto" style="width: 895px; background-color: black;">
-        <h2 class="text-center">Comments</h2>
-
         {{-- input-add-comment --}}
-        <form action="" method="POST" class="d-flex justify-content-between p-3 border-bottom" >
+        <form action="{{route('dashboard.comments.store', $post->id)}}" method="POST" class="d-flex justify-content-between p-3 border-bottom" >
             @csrf
-            <input type="text" class="form-control" placeholder="Write a comment" style="width: 80%;">
+            <input type="text" name="content" id="content" class="form-control" placeholder="Write a comment" style="width: 80%;">
             <button class="btn btn-primary">Add comment</button>
         </form>
-        {{-- comments --}}
-        <article class="d-flex flex-column border-bottom">
-            {{-- foreach --}}
-            <div class="d-flex justify-content-between align-items-center" style="padding: .5rem 75px">
-                <div class="d-block">
+        {{-- comments  --}}
+        @forelse($post->comments as $comment)
+            
+            <article class="d-flex border-bottom overflow-hidden" style="padding: .5rem 75px">
+                <div class="me-3">
                     <img 
                         src="{{auth()->user()->image}}" 
                         alt="{{auth()->user()->name}}"
                         width="32" 
                         height="32" 
                         class="object-fit-cover rounded-circle"
-                        style="margin-right: 10px"
                     >
-                    <span>@user</span>
                 </div>
-                <button type="button" class="rounded-circle btn btn-primary">
-                    <i class="bi bi-three-dots"></i>
-                </button>
-                {{-- <i class="bi bi-heart"></i> --}}
+                <div class="d-grid w-100"> 
+                    <header class="d-flex justify-content-between align-items-center" style="height: 32px;">
+                        <div class="d-block">
+                            <span class="text-primary">@user</span>
+                        </div>
+                        <div class="d-flex align-items-center column-gap-2">
+                            <span>2 horas</span>
+                            {{-- TODO:menu a arreglar --}}
+                            <div class="dropdown">
+                                <a href="#" class="menu-comments" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                    @if(auth()->user()->id === $comment->user_id)
+                                        <li>
+                                            <form action="{{route('dashboard.comments.destroy', $comment)}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item text-danger">Remove</button>
+                                            </form>
+                                        </li>
+                                    @else
+                                        <li><a class="dropdown-item" href="#">Report</a></li>
+                                    @endif
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </header>
+                    <p class="text-break">{{$comment->content}}</p>
+                    <div class="d-flex gap-4">
+                        <div class="likes d-flex column-gap-2 align-items-center">
+                            <i class="bi bi-heart-fill"></i>
+                            <span>0</span>
+                        </div>
+                        <div class="answers d-flex column-gap-2 align-items-center">
+                            <i class="bi bi-chat-fill"></i>
+                            <span>0</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        @empty
+            <div class="text-center py-3">
+                <span class="text-muted">No comments yet. Be the first to comment!</span>
             </div>
-            <div class="d-flex" style="padding: 0 75px;">
-                <div style="width: 44px; height: 10px"></div>
-                <p style="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</p>
-            </div>
-            
-            {{-- @empty($comments)
-                <p class="text-center">No comments</p> --}}
-        </article>
+        @endforelse
         
     </div>
 </main>
+
 @endsection
