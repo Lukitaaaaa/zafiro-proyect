@@ -23,7 +23,7 @@
             @csrf
             @method('PUT')
             <div class="col-4 d-flex flex-column align-items-center w-100 mb-3">
-                <img src="{{$user->image}}" alt="{{$user->name}}" class="rounded-circle" width="200" height="200">
+                <img src="{{$user->image}}" alt="{{$user->name}}" class="rounded-circle object-fit-cover" width="200" height="200">
                 
                 <label for="upload-photo" class="upload-button mt-3">Update image</label>
                 <input type="file" name="image" id="upload-photo" class="upload-photo" />

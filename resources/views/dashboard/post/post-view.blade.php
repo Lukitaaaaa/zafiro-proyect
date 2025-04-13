@@ -135,7 +135,6 @@
                         </div>
                         <div class="d-flex align-items-center column-gap-2">
                             <span>{{ $comment->created_at->diffInSeconds() < 60 ? 'Now' : $comment->created_at->diffForHumans() }}</span>
-                            {{-- TODO:menu a arreglar --}}
                             <div class="dropdown">
                                 <a href="#" class="menu-comments" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>

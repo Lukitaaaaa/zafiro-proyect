@@ -3,6 +3,31 @@
     'username' => '',
     'image' => ''
 ])
+
+<style>
+    .banner {
+        z-index: 1000;
+    }
+    .banner .nav-link {
+        color: white;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    .banner .nav-link:hover {
+        background-color: #343a40;
+        color: white;
+    }
+    .banner .nav-link.active {
+        background-color: #495057;
+        color: white;
+    }
+    .banner .dropdown-menu {
+        background-color: #343a40;
+    }
+    .banner .dropdown-item:hover {
+        background-color: #495057;
+        color: white;
+    }
+</style>
 <div class="banner position-fixed top-0">
     <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 240px; height: 100vh; background-color: black!important;">
         <a href="/" class="mb-md-0 text-center text-white text-decoration-none">

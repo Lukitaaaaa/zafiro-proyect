@@ -35,6 +35,7 @@ Route::name('auth.')->group(function(){
 Route::name('dashboard.')->middleware('auth')->group(function(){
 
     Route::get('/home', [HomeController::class, 'index'])->name('home'); 
+    Route::get('/home/users', [HomeController::class, 'showUsers'])->name('show-users');
     
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
