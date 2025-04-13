@@ -8,7 +8,7 @@
             </div>
             <div class="comments d-flex column-gap-2  align-items-center">
                 <i class="bi bi-chat-fill"></i>
-                <p class="m-0">0</p>
+                <p class="m-0">{{$post->comments()->count()}}</p>
             </div>
         </div>
         

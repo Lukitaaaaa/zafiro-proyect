@@ -2,6 +2,21 @@
 
 @section('content')
 <style>
+    .button{
+        border: none;
+        background: none;
+        cursor: pointer;
+        width: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+    }
+
+    .button:disabled > span{
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
     .menu-comments{
         border: none;
         background: none;
@@ -49,7 +64,7 @@
                         @if(auth()->user()->id === $post->user->id)
                             <a href="{{route('dashboard.posts.edit', $post)}}" class="dropdown-item">Edit</a>
                             <li>
-                                <form action="{{route('dashboard.posts.destroy', $post)}}" method="post">
+                                <form action="{{route('dashboard.posts.destroy', $post)}}" method="post" class="m-0">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="dropdown-item text-danger">Remove</button>
@@ -73,20 +88,7 @@
                     </div>
                 </form>
             @else 
-                <span class="mb-auto fs-3 w-75 text-break">{{$post->description}}</span>   
-                {{-- <div class="position-absolute end-0 mt-3">
-                    <div class="d-flex flex-column row-gap-3">
-                        <a href="{{route('dashboard.profile')}}" class="btn btn-primary">Close</a>
-                        @if(auth()->user()->id === $post->user_id)
-                            <a href="{{route('dashboard.posts.edit', $post)}}" class="btn btn-warning">Edit</a>
-                            <form id="form_{{$post->id}}" action="{{route('dashboard.posts.destroy', $post)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Remove</button>
-                            </form>
-                        @endif
-                    </div>
-                </div> --}}
+                <span class="mb-auto fs-3 w-100 text-break">{{$post->description}}</span>   
             @endif
             <div class="d-flex justify-content-between">
                 <div class="d-flex column-gap-4">
@@ -96,24 +98,27 @@
                     </div>
                     <div class="comments d-flex column-gap-2  align-items-center">
                         <i class="bi bi-chat-fill"></i>
-                        <p class="m-0">0</p>
+                        <p class="m-0">{{$post->comments()->count()}}</p>
                     </div>
                 </div>
-                <strong>{{$post->created_at}}</strong>
+                <strong>{{$post->created_at->diffForHumans()}}</strong>
             </div>
         </div>
     </div>
     <div class="w-full border mt-3 mx-auto" style="width: 895px; background-color: black;">
         {{-- input-add-comment --}}
-        <form action="{{route('dashboard.comments.store', $post->id)}}" method="POST" class="d-flex justify-content-between p-3 border-bottom" >
+        <form action="{{route('dashboard.comments.store', $post->id)}}" method="POST" class="d-flex justify-content-between m-0 border-bottom gap-5" style="padding: 1rem 75px;" >
             @csrf
-            <input type="text" name="content" id="content" class="form-control" placeholder="Write a comment" style="width: 80%;">
-            <button class="btn btn-primary">Add comment</button>
+            <input type="text" name="content" id="content" class="form-control w-100" placeholder="Write a comment...">
+            <button id="add-comment-btn" class="button">
+                <span id="button-text">Publish</span>
+                <span id="spinner" class="spinner-border text-primary spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            </button>
         </form>
         {{-- comments  --}}
         @forelse($post->comments as $comment)
             
-            <article class="d-flex border-bottom overflow-hidden" style="padding: .5rem 75px">
+            <article class="d-flex border-bottom" style="padding: .5rem 75px">
                 <div class="me-3">
                     <img 
                         src="{{ $comment->user->image }}" 
@@ -129,22 +134,23 @@
                             <span class="text-primary">{{ '@' . $comment->user->username }}</span>
                         </div>
                         <div class="d-flex align-items-center column-gap-2">
-                            <span>2 horas</span>
+                            <span>{{ $comment->created_at->diffInSeconds() < 60 ? 'Now' : $comment->created_at->diffForHumans() }}</span>
                             {{-- TODO:menu a arreglar --}}
                             <div class="dropdown">
                                 <a href="#" class="menu-comments" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                    @if(auth()->user()->id === $comment->user_id)
+                                    @if(auth()->user()->id === $comment->user_id || auth()->user()->id === $post->user_id)
                                         <li>
-                                            <form action="{{route('dashboard.comments.destroy', $comment)}}" method="post">
+                                            <form action="{{route('dashboard.comments.destroy', $comment)}}" method="post" class="m-0">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="dropdown-item text-danger">Remove</button>
                                             </form>
                                         </li>
-                                    @else
+                                    @endif
+                                    @if(auth()->user()->id !== $comment->user_id)
                                         <li><a class="dropdown-item" href="#">Report</a></li>
                                     @endif
                                 </ul>
@@ -175,3 +181,23 @@
 </main>
 
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const form = document.querySelector('form[action="{{ route('dashboard.comments.store', $post->id) }}"]');
+        const button = document.getElementById('add-comment-btn');
+        const input = document.getElementById('content');
+
+        button.disabled = input.value.trim() === '';
+
+        input.addEventListener('input', () => {
+            button.disabled = input.value.trim() === '';
+        });
+
+        form.addEventListener('submit', function () {
+            button.disabled = true;
+            document.getElementById('button-text').classList.add('d-none'); // Ocultar el texto
+            document.getElementById('spinner').classList.remove('d-none'); // Mostrar el spinner
+        });
+    });
+</script>
