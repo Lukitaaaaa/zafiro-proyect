@@ -9,11 +9,12 @@ use App\Http\Requests\Dashboard\UpdateProfileRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function index(){
+    public function index(User $user){
         
         // $post = new Post([
         //     'description' => 'hello',
@@ -21,9 +22,10 @@ class ProfileController extends Controller
         // ]);
 
         // $post->save();
-        $posts = Post::where('user_id', Auth::user()->id)->orderBy('created_at','DESC')->get();
+        $posts = Post::where('user_id', $user->id)->orderBy('created_at','DESC')->get();
         return view('dashboard.profile.index', [
-            'posts' => $posts
+            'posts' => $posts,
+            'user' => $user
         ]);
 
     }

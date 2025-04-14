@@ -37,11 +37,11 @@ Route::name('dashboard.')->middleware('auth')->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home'); 
     Route::get('/home/users', [HomeController::class, 'showUsers'])->name('show-users');
     
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile/{user}', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     
-    Route::resource('/posts', PostController::class);
+    Route::resource('/posts', PostController::class)->except('index');
 
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');

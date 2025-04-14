@@ -72,21 +72,20 @@
             <img src="{{$image}}" alt="{{$name}}" width="32" height="32" class="object-fit-cover rounded-circle me-2">
             <div class="d-flex flex-column">
                 <strong class="name" style="font-size: smaller;">{{$name}}</strong>
-                <strong class="username" style="font-size: small;"><span>@</span>{{$username}}</strong>
+                <strong class="username" style="font-size: small;">{{'@' . $username}}</strong>
             </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-            <li><a class="dropdown-item" href="{{route('dashboard.profile')}}">Profile</a></li>
-            {{-- TODO: VER COMO CARAJOP HACER PARA QUE NO ENTREN AL HOME POR LA RUTA --}}
+            <li><a class="dropdown-item" href="{{route('dashboard.profile', auth()->user()) }}">Profile</a></li>
+
             @auth
-            <li><hr class="dropdown-divider"></li>
-            <li>
-                {{-- <a class="dropdown-item" href="#">Sign out</a> --}}
-                <form action="{{route('auth.logout')}}" method="POST">
-                    @csrf
-                    <button class="dropdown-item" type="submit">logout</button>
-                </form>
-            </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <form action="{{route('auth.logout')}}" method="POST">
+                        @csrf
+                        <button class="dropdown-item" type="submit">logout</button>
+                    </form>
+                </li>
             @endauth
             </ul>
         </div>

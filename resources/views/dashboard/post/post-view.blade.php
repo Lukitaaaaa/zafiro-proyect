@@ -53,7 +53,7 @@
                         height="32" 
                         class="object-fit-cover rounded-circle"
                     >
-                    <span class="fs-5"> {{ '@' . $post->user->username }}</span>
+                    <a href="{{route('dashboard.profile', $post->user)}}" class="fs-5"> {{ '@' . $post->user->username }}</a>
                 </div>
                 <div class="dropdown">
                     <a href="#" class="menu-comments" data-bs-toggle="dropdown" aria-expanded="false">
@@ -131,7 +131,7 @@
                 <div class="d-grid w-100"> 
                     <header class="d-flex justify-content-between align-items-center" style="height: 32px;">
                         <div class="d-block">
-                            <span class="text-primary">{{ '@' . $comment->user->username }}</span>
+                            <a href="{{route('dashboard.profile', $comment->user)}}" class="text-primary">{{ '@' . $comment->user->username }}</a>
                         </div>
                         <div class="d-flex align-items-center column-gap-2">
                             <span>{{ $comment->created_at->diffInSeconds() < 60 ? 'Now' : $comment->created_at->diffForHumans() }}</span>

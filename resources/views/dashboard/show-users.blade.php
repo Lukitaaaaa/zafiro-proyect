@@ -28,7 +28,7 @@
                 <header class="d-flex justify-content-between align-items-center ">
 
                     <div class="overflow-hidden">
-                        <a class="h6 mb-0" href="#!">{{ $user->name }}</a>
+                        <a class="h6 mb-0" href="{{route('dashboard.profile', $user)}}">{{ $user->name }}</a>
                         <p class="mb-0 small text-truncate">{{ '@' . $user->username }}</p>
                     </div>
                     <button class="ms-auto btn btn-primary">Follow</button>

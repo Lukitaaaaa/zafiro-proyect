@@ -12,6 +12,11 @@
         height: 100%;
         object-fit: cover;
     }
+
+    .how-to-follow-container {
+        max-width: 290px;
+        
+    }
 </style>
 <main class="d-flex flex-row w-100" style="margin-left: 240px;">
     <div class="feed mx-auto">
@@ -34,7 +39,7 @@
                 @foreach ($users as $user)
                     <div class="hstack gap-2 mb-3">
                         <div class="avatar">
-                            <a href="#!">
+                            <a href="{{route('dashboard.profile', $user)}}">
                                 <img class="avatar-img rounded-circle"
                                 src="{{ $user->image }}" 
                                 alt="{{ $user->name }}"
@@ -42,10 +47,10 @@
                             </a>
                         </div>
                         <div class="overflow-hidden">
-                            <a class="mb-0 small" href="#!">{{ $user->name }}</a>
+                            <a class="mb-0 small" href="{{route('dashboard.profile', $user)}}">{{ $user->name }}</a>
                             <p class="mb-0 small text-truncate">{{ '@' . $user->username }}</p>
                         </div>
-                        <a class="btn btn-primary-soft rounded-circle icon-md ms-auto" href="#"><i class="bi bi-plus-lg"> </i></a>
+                        <button class="ms-auto btn btn-primary">Follow</button>
                     </div>
                 @endforeach
                 <div class="d-grid mt-3">
