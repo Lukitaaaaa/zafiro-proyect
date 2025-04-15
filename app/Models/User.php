@@ -43,6 +43,16 @@ class User extends Authenticatable
         return $this->followings()->where('user_id', $user->id)->exists();
     }
 
+    public function likes()
+    {
+        return $this->belongsToMany(Post::class, 'post_like')->withTimestamps();
+    }
+
+    public function isLiked(Post $post)
+    {
+        return $this->likes()->where('post_id', $post->id)->exists();
+    }
+
     public function image(): Attribute{
         return new Attribute(get: fn($value) => $value ? Storage::disk('users')->url($value) : asset('images/profile.svg'));
     }

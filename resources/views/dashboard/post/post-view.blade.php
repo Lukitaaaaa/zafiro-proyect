@@ -12,6 +12,24 @@
         align-items: center;    
     }
 
+    .btn-likes{
+        border: none;
+        background: none;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s ease;    
+    }
+
+    .btn-likes:hover{
+        background-color: rgba(182, 24, 24, 0.1);
+    }
+
     .button:disabled > span{
         cursor: not-allowed;
         opacity: 0.5;
@@ -93,8 +111,18 @@
             <div class="d-flex justify-content-between">
                 <div class="d-flex column-gap-4">
                     <div class="likes d-flex  column-gap-2 align-items-center">
-                        <i class="bi bi-heart-fill"></i>
-                        <p class="m-0">{{$post->likes}}</p>
+                        @if(auth()->user()->isLiked($post))
+                            <form action="{{route('dashboard.posts.unlike', $post)}}" method="post" class="m-0">
+                                @csrf
+                                <button type="submit" class="btn-likes"><i class="bi bi-heart-fill text-danger"></i></button>
+                            </form>
+                        @else
+                            <form action="{{route('dashboard.posts.like', $post)}}" method="post" class="m-0">
+                                @csrf
+                                <button type="submit" class="btn-likes"><i class="bi bi-heart text-danger"></i></button>
+                            </form>
+                        @endif
+                        <p class="m-0">{{$post->likes()->count()}}</p>
                     </div>
                     <div class="comments d-flex column-gap-2  align-items-center">
                         <i class="bi bi-chat-fill"></i>

@@ -4,7 +4,7 @@
         <div class="interations-container d-flex">
             <div class="likes d-flex  column-gap-2 me-4 align-items-center">
                 <i class="bi bi-heart-fill"></i>
-                <p class="m-0">{{$post->likes}}</p>
+                <p class="m-0">{{$post->likes()->count()}}</p>
             </div>
             <div class="comments d-flex column-gap-2  align-items-center">
                 <i class="bi bi-chat-fill"></i>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Dashboard\CommentController;
+use App\Http\Controllers\Dashboard\LikeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\PostController;
@@ -48,6 +49,9 @@ Route::name('dashboard.')->middleware('auth')->group(function(){
 
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+    Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('posts.like');
+    Route::post('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('posts.unlike');
 });
 
 

@@ -52,7 +52,7 @@ class PostController extends Controller
         }
         
         //dd($request->all());
-        return redirect()->route('dashboard.profile');
+        return redirect()->route('dashboard.profile', auth()->user());
     }
 
     /**
