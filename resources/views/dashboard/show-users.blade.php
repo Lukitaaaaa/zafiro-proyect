@@ -31,7 +31,10 @@
                         <a class="h6 mb-0" href="{{route('dashboard.profile', $user)}}">{{ $user->name }}</a>
                         <p class="mb-0 small text-truncate">{{ '@' . $user->username }}</p>
                     </div>
-                    <button class="ms-auto btn btn-primary">Follow</button>
+                    <form action="{{ route( 'dashboard.profile.follow', $user->id)}}" method="post" class=" ms-auto">
+                        @csrf
+                        <button type="submit" class="btn btn-primary w-100">Follow</button>
+                    </form>
                 </header>
                 <span class="text-break">{{ $user->bio }}</span>
             </div>

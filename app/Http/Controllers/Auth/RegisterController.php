@@ -16,6 +16,7 @@ class RegisterController extends Controller
 
     public function store(RegisterRequest $request)
     {
+        dd($request);
         $data = $request->validated();
 
         $data['password'] = bcrypt($data['password']);
