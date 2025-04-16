@@ -33,4 +33,13 @@ class HomeController extends Controller
 
         return view('dashboard.show-users', compact('users'));
     }
+
+    public function likedPosts() {
+        $user = auth()->user();
+
+        // Obtener los posts que el usuario ha "likeado"
+        $posts = $user->likes()->with('user')->get();
+
+        return view('dashboard.liked-posts', compact('posts'));
+    }
 }

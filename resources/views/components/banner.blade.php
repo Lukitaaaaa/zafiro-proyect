@@ -48,7 +48,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white d-flex align-items-center justify-content-start">
+                <a href="{{route('dashboard.posts-liked')}}" class="nav-link text-white d-flex align-items-center justify-content-start">
                     <i class="bi bi-heart me-2"></i>
                     Likes
                 </a>
