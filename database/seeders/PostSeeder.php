@@ -13,7 +13,7 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        User::all()->each(fn($user) => Post::factory(10)->create([
+        User::all()->each(fn($user) => Post::factory(3)->create([
             'user_id' => $user,
         ]));;
     }

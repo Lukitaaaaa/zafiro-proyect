@@ -16,12 +16,6 @@ class ProfileController extends Controller
 {
     public function index(User $user){
         
-        // $post = new Post([
-        //     'description' => 'hello',
-        //     'image' => ''
-        // ]);
-
-        // $post->save();
         $posts = Post::where('user_id', $user->id)->orderBy('created_at','DESC')->get();
         return view('dashboard.profile.index', [
             'posts' => $posts,
@@ -31,7 +25,10 @@ class ProfileController extends Controller
     }
 
     public function edit(){
-        return view('dashboard.profile.edit', ['user' => Auth::user()]);
+        
+        return view('dashboard.profile.edit', [
+            'user' => auth()->user()
+        ]);
     }
 
     public function update(UpdateProfileRequest $request){
@@ -39,7 +36,8 @@ class ProfileController extends Controller
         if($request->hasFile('image')){
             $data['image'] = Storage::disk('users')->put('users', $request->file('image'));
         }
-        $user = auth()->user()->update($data);
+        $user = auth()->user();
+        $user->fill($data)->save();
 
         return view('dashboard.profile.index', [
             'posts' => Post::where('user_id', Auth::user()->id)->orderBy('created_at','DESC')->get(),

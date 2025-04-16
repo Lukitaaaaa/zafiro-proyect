@@ -26,7 +26,7 @@
                 <img src="{{$user->image}}" alt="{{$user->name}}" class="rounded-circle object-fit-cover" width="200" height="200">
                 
                 <label for="upload-photo" class="upload-button mt-3">Update image</label>
-                <input type="file" name="image" id="upload-photo" class="upload-photo" />
+                <input type="file" name="image" id="upload-photo" class="upload-photo" accept="image/*" />
                 {{-- TODO: HACER EL BOTON PARA ELIMINAR LA FOTO DE PERFIL --}}
             </div>
             
@@ -36,10 +36,6 @@
             <x-form.input label="Username" type="text" id="username" name="username" :required="true" :value="$user->username"/>
 
             <x-form.text-area label="Presentation" id="bio" name="bio" rows="2"/>
-            {{-- <div class="mb-2">
-                <label for="exampleFormControlTextarea1" class="form-label">Presentation</label>
-                <textarea class="form-control" name="bio" id="bio" rows="3">{{$user->bio}}</textarea>
-            </div> --}}
 
             <button type="submit" class="btn btn-primary w-100 mt-4">Update</button>
         </form>

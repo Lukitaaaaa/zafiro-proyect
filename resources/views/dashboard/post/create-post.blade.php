@@ -15,6 +15,20 @@
         z-index: -1;
     }
 
+    .remove-image-btn{
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+        background-color: #1d1b1b;
+        border-radius: 50%;
+        border: none;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
 </style>
 <div class=" w-100 py-3" style="margin-left: 240px">
     <div class="mx-auto border border-4 rounded-4 p-3" style="width: 750px; background-color: black;">
@@ -23,61 +37,57 @@
         <form action="{{route('dashboard.posts.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="d-flex gap-4">
-                <div class="d-flex flex-column align-items-center justify-content-center" style="width: 285px; height: 285px;">
-                    <i class="bi bi-file-image"></i>
-                    <span>Choose your image</span>
-                    <label for="upload-photo" class="upload-button mt-3">Select from computer</label>
-                    <input type="file" name="image" id="upload-photo" class="upload-photo" />
+                <div class="position-relative border" style="width: 285px; height: 285px;">
+                    <button id="remove-image" class="remove-image-btn d-none position-absolute"><i class="bi bi-x-lg"></i></button>
+                    <img src="#" alt="Image preview" id="preview" class="img-fluid d-none w-100 h-100 object-fit-cover">
+                    <div id="input-container" class="d-flex flex-column align-items-center justify-content-center h-100">
+                        <i class="bi bi-file-image"></i>
+                        <span>Choose your image</span>
+                        <label for="upload-photo" class="upload-button mt-3">Select from computer</label>
+                        <input type="file" name="image" id="upload-photo" class="upload-photo" accept="image/*"/>
+                    </div>
                 </div>
                 <div class="w-50">
-                    <x-form.text-area label="Description" name="description" id="description" rows="7"/>
+                    <x-form.text-area name="description" id="description" rows="7"/>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary w-100 mt-4">Create</button>
         </form>
     </div>
-    {{-- <div class="row">
-        <div class="col-12">
-            <div>
-                <h2>Create Post</h2>
-            </div>
-            <div>
-                <a href="#" class="btn btn-primary">Volver</a>
-            </div>
-        </div>
-        
-        @if ($errors->any())
-            <div class="alert alert-danger mt-2">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-    
-        <form action="{{route('dashboard.posts.store')}}" method="POST" enctype="multipart/form-data"> 
-            @csrf
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
-                    <div class="form-group">
-                        <strong>Description:</strong>
-                        <textarea class="form-control" style="height:150px" name="description" placeholder="Descripción..." ></textarea>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
-                    <div class="form-group">
-                        <strong>Image:</strong>
-                        <input type="file" name="image" class="form-control" accept="image/*">
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-2">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </div>
-            </div>
-        </form>
-    </div> --}}
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const uploadPhoto = document.getElementById('upload-photo');
+        const preview = document.getElementById('preview');
+        const container = document.getElementById('input-container');
+        const removeImageBtn = document.getElementById('remove-image');
 
+        uploadPhoto.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    container.classList.add('d-none');
+                    preview.classList.remove('d-none');
+                    removeImageBtn.classList.remove('d-none');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.classList.add('d-none');
+                removeImageBtn.classList.add('d-none');
+                container.classList.remove('d-none');
+            }
+        });
+
+        removeImageBtn.addEventListener('click', function() {
+            uploadPhoto.value = ''; // Clear the file input
+            preview.classList.add('d-none');
+            removeImageBtn.classList.add('d-none');
+            container.classList.remove('d-none');
+        });
+    });
+</script>
 @endsection

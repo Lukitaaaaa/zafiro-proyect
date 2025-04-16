@@ -16,8 +16,8 @@
         border: none;
         background: none;
         padding: 0;
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
@@ -27,7 +27,7 @@
     }
 
     .btn-likes:hover{
-        background-color: rgba(182, 24, 24, 0.1);
+        background-color: rgba(232, 18, 18, 0.1);
     }
 
     .button:disabled > span{
@@ -110,7 +110,7 @@
             @endif
             <div class="d-flex justify-content-between">
                 <div class="d-flex column-gap-4">
-                    <div class="likes d-flex  column-gap-2 align-items-center">
+                    <div class="likes d-flex align-items-center">
                         @if(auth()->user()->isLiked($post))
                             <form action="{{route('dashboard.posts.unlike', $post)}}" method="post" class="m-0">
                                 @csrf

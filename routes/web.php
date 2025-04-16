@@ -39,9 +39,9 @@ Route::name('dashboard.')->middleware('auth')->group(function(){
     Route::get('/home/users', [HomeController::class, 'showUsers'])->name('show-users');
     Route::get('/liked-posts', [HomeController::class, 'likedPosts'])->name('posts-liked');
     
-    Route::get('/profile/{user}', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/{user}', [ProfileController::class, 'index'])->name('profile');
 
     Route::post('/profile/{user}/follow', [ProfileController::class, 'follow'])->name('profile.follow');
     Route::post('/profile/{user}/unfollow', [ProfileController::class, 'unfollow'])->name('profile.unfollow');

@@ -24,6 +24,7 @@
             <div class="d-flex mb-2 column-gap-5">
                 <p>{{ $user->followers()->count() . ' followers'}}</p>
                 <p>{{ $user->followings()->count() . ' followings' }}</p>
+                <p>{{ $user->posts()->count() . ' posts' }}</p>
             </div>
             <p class="description text-break">{{$user->bio}}</p>
         </div>
