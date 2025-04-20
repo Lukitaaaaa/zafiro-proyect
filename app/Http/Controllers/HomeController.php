@@ -42,4 +42,8 @@ class HomeController extends Controller
 
         return view('dashboard.liked-posts', compact('posts'));
     }
+
+    public function settings() {
+        return view('dashboard.settings');
+    }
 }
