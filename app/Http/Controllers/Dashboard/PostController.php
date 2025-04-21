@@ -60,8 +60,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+            
         $post->load(['comments' => function ($query) {
-            $query->orderBy('created_at', 'desc'); // Ordenar los comentarios por fecha de creación (más recientes primero)
+            $query->with('user')->orderBy('created_at', 'desc'); // Ordenar los comentarios por fecha de creación (más recientes primero)
         }, 'comments.user', 'user']);
 
         $editing = false;

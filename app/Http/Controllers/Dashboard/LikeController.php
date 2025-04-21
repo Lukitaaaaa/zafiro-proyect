@@ -19,4 +19,6 @@ class LikeController extends Controller
         $liker->likes()->detach($post);
         return redirect()->route('dashboard.posts.show', $post->id);
     }
+
+    //TODO: SOLUCIONAR EL PROBLEMA DE ACTUALIZAR EL CONTADOR DE LIKES EN LA POST CARD CUANDO SE HACE UNA ACCION Y SE RETROCEDE A LA PAGINA ANTERIOR
 }

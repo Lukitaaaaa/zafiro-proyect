@@ -16,7 +16,7 @@ class ProfileController extends Controller
 {
     public function index(User $user){
         
-        $posts = Post::where('user_id', $user->id)->orderBy('created_at','DESC')->get();
+        $posts = Post::withCount(['likes', 'comments'])->where('user_id', $user->id)->orderBy('created_at','DESC')->get();
         return view('dashboard.profile.index', [
             'posts' => $posts,
             'user' => $user

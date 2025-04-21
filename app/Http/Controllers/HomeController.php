@@ -10,8 +10,9 @@ class HomeController extends Controller
 {
     public function index(){
         $userAuth = auth()->user();
+        
+        $posts = Post::with(['user'])->withCount(['likes', 'comments'])->orderBy('created_at','DESC')->get();
 
-        $posts = Post::orderBy('created_at','DESC')->get();
         $users = User::where('id', '!=', $userAuth->id)
                 ->whereNotIn('id', $userAuth->followings()->pluck('users.id'))
                 ->orderBy('created_at','DESC')
@@ -38,7 +39,7 @@ class HomeController extends Controller
         $user = auth()->user();
 
         // Obtener los posts que el usuario ha "likeado"
-        $posts = $user->likes()->with('user')->get();
+        $posts = $user->likes()->with('user')->withCount(['likes', 'comments'])->get();
 
         return view('dashboard.liked-posts', compact('posts'));
     }
