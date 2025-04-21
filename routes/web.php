@@ -19,18 +19,18 @@ Route::name('auth.')->group(function(){
     Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login');
     Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
     
-    Route::get('/registro', [RegisterController::class, 'index'])->name('register.index');
-    Route::post('/registro', [RegisterController::class, 'store'])->name('register.store');
+    Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
     
     Route::middleware('guest')->group(function(){
     
-        Route::get('/olvide-contrasena', [ResetPasswordController::class, 'index'])->name('forgot-password.index');
-        Route::post('/olvide-contrasena', [ResetPasswordController::class, 'send'])->name('forgot-password.send');
+        Route::get('/forgot-password', [ResetPasswordController::class, 'index'])->name('forgot-password.index');
+        Route::post('/forgot-password', [ResetPasswordController::class, 'send'])->name('forgot-password.send');
     
-        Route::get('/restablecer-contrasena/{token}', [ResetPasswordController::class, 'recoverIndex'])->name('password.reset');
-        Route::post('/restablecer-contrasena', [ResetPasswordController::class, 'reset'])->name('password.update');
+        Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+        Route::get('/reset-password/{token}', [ResetPasswordController::class, 'recoverIndex'])->name('password.reset');
     });
-
+    
 });
 
 Route::name('dashboard.')->middleware('auth')->group(function(){
