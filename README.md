@@ -11,7 +11,9 @@ Zafiro Project es una aplicación web que proporciona una plataforma para que lo
 - Registro e inicio de sesión de usuarios.
 - Creación, edición y eliminación de publicaciones.
 - Edición de perfil de usuario, incluyendo la actualización y eliminación de la imagen de perfil.
-- Visualización de publicaciones en un feed.
+- Publicar comentarios en las publicaciones.
+- Likear publicaciones 
+- Seguir a otros usuarios.
 
 ## Instalación
 
