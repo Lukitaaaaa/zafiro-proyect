@@ -1,5 +1,5 @@
 <div class="card rounded-0 border-0 post-container position-relative">
-    <img src="/storage/{{$post->image}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
+    <img src="{{$post->image}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
     <div class="overlay">
         <div class="interations-container d-flex">
             <div class="likes d-flex  column-gap-2 me-4 align-items-center">

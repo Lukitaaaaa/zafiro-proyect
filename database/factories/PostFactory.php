@@ -18,7 +18,7 @@ class PostFactory extends Factory
     {
         return [
             'description' => $this->faker->realText(),
-            'image' => '',
+            'image' => asset('images/post.svg'),
         ];
     }
 }

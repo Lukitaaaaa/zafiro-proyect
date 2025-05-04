@@ -59,7 +59,7 @@
 
 <main class=" w-100 py-5" style="margin-left: 240px!important;">
     <div class="mx-auto d-flex border rounded-4 p-3" style="width: 895px; background-color: black;">
-        <img src="/storage/{{$post->image}}" alt="Imagen de un post" class="object-fit-cover" width="285" height="285">
+        <img src="{{$post->image}}" alt="Imagen de un post" class="object-fit-cover" width="285" height="285">
         <div class="ms-3 d-flex flex-column position-relative w-75">
             <div class="mb-3 d-flex justify-content-between">
                 <div class="d-flex gap-3">
@@ -223,7 +223,7 @@
 
         form.addEventListener('submit', function () {
             button.disabled = true;
-            document.getElementById('button-text').classList.add('d-none'); // Ocultar el texto
+            document.getElementById('button-text').classList.add('d-none'); // Ocultar el texto del boton
             document.getElementById('spinner').classList.remove('d-none'); // Mostrar el spinner
         });
     });
