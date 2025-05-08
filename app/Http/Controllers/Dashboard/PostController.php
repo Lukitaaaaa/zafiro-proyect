@@ -98,7 +98,8 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         Storage::disk('public')->delete($post->image);
+
         $post->delete();
-        return redirect()->route('dashboard.profile');
+        return redirect()->route('dashboard.profile', auth()->user());
     }
 }

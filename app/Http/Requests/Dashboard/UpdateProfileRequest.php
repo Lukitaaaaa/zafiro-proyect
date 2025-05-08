@@ -44,8 +44,9 @@ class UpdateProfileRequest extends FormRequest
     protected function prepareForValidation()
     {
         $user = auth()->user();
+        $changeSlug = $user->username !== $this->get('username') || !$user->slug;
         $this->merge([
-            
+            'slug' => $changeSlug ? str($this->get('username'))->slug() . '-' . uniqid() : $user->slug
         ]); 
     }
 }

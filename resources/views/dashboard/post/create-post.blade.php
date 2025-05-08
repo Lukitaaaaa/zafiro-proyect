@@ -34,7 +34,7 @@
     <div class="mx-auto border border-4 rounded-4 p-3" style="width: 750px; background-color: black;">
         <h3 class="text-center">Create post</h3>
         <hr>
-        <form action="{{route('dashboard.posts.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('dashboard.posts.store')}}" method="POST" enctype="multipart/form-data" id="create-post-form">
             @csrf
             <div class="d-flex gap-4">
                 <div class="position-relative border" style="width: 285px; height: 285px;">
@@ -51,7 +51,7 @@
                     <x-form.text-area name="description" id="description" rows="7"/>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100 mt-4">Create</button>
+            <button type="submit" class="btn btn-primary w-100 mt-4" id="create-post-btn" disabled>Create</button>
         </form>
     </div>
 </div>
@@ -61,6 +61,8 @@
         const preview = document.getElementById('preview');
         const container = document.getElementById('input-container');
         const removeImageBtn = document.getElementById('remove-image');
+        const createPostBtn = document.getElementById('create-post-btn');
+        const form = document.getElementById('create-post-form');
 
         uploadPhoto.addEventListener('change', function(event) {
             const file = event.target.files[0];
@@ -73,12 +75,14 @@
                     container.classList.add('d-none');
                     preview.classList.remove('d-none');
                     removeImageBtn.classList.remove('d-none');
+                    createPostBtn.disabled = false;
                 }
                 reader.readAsDataURL(file);
             } else {
                 preview.classList.add('d-none');
                 removeImageBtn.classList.add('d-none');
                 container.classList.remove('d-none');
+                createPostBtn.disabled = true;
             }
         });
 
@@ -87,6 +91,11 @@
             preview.classList.add('d-none');
             removeImageBtn.classList.add('d-none');
             container.classList.remove('d-none');
+            createPostBtn.disabled = true;
+        });
+
+        form.addEventListener('submit', function() {
+            createPostBtn.disabled = true;
         });
     });
 </script>
