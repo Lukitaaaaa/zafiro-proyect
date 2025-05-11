@@ -59,8 +59,14 @@
 
 <main class=" w-100 py-5" style="margin-left: 240px!important;">
     <div class="mx-auto d-flex border rounded-4 p-3" style="width: 895px; background-color: black;">
-        <img src="{{$post->image}}" alt="Imagen de un post" class="object-fit-cover" width="285" height="285">
-        <div class="ms-3 d-flex flex-column position-relative w-75">
+        {{-- PARA QUE SE VEAN LAS IMAGENES DE LOS POSTS CREADOS POR EL FACTORY Y EL USUARIO --}}
+        {{-- CUANDO NO SE NECESITE LOS POST GENERADOS POR EL FACTORY, SE PUEDE ELIMINAR EL IF --}}
+        @if($post->image == "http://localhost:8000/images/post.svg")
+            <img src="{{$post->image}}" alt="Imagen de un post" class="object-fit-cover" width="285" height="285" style="min-width: 285px;">
+        @else
+            <img src="/storage/{{$post->image}}" alt="Imagen de un post" class="object-fit-cover" width="285" height="285" style="min-width: 285px;">
+        @endif
+        <div class="ms-3 d-flex flex-column position-relative w-100">
             <div class="mb-3 d-flex justify-content-between">
                 <div class="d-flex gap-3">
 

@@ -1,5 +1,13 @@
 <div class="card rounded-0 border-0 post-container position-relative">
-    <img src="{{$post->image}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
+    
+    {{-- PARA QUE SE VEAN LAS IMAGENES DE LOS POSTS CREADOS POR EL FACTORY Y EL USUARIO --}}
+
+    @if($post->image == "http://localhost:8000/images/post.svg")
+        <img src="{{$post->image}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
+    @else
+        <img src="/storage/{{$post->image}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
+    @endif
+    
     <div class="overlay">
         <div class="interations-container d-flex">
             <div class="likes d-flex  column-gap-2 me-4 align-items-center">

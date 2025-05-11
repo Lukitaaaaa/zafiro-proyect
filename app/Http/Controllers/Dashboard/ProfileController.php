@@ -34,7 +34,7 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request){
         $data = $request->safe()->except('image');
         if($request->hasFile('image')){
-            $data['image'] = Storage::disk('users')->put('users', $request->file('image'));
+            $data['image'] = Storage::disk('users')->put('/', $request->file('image'));
         }
         $user = auth()->user();
         $user->fill($data)->save();
