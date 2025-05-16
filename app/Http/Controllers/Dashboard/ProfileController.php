@@ -17,10 +17,7 @@ class ProfileController extends Controller
     public function index(User $user){
         
         $posts = Post::withCount(['likes', 'comments'])->where('user_id', $user->id)->orderBy('created_at','DESC')->get();
-        return view('dashboard.profile.index', [
-            'posts' => $posts,
-            'user' => $user
-        ]);
+        return view('dashboard.profile.index', compact('posts', 'user'));
 
     }
 
@@ -32,17 +29,30 @@ class ProfileController extends Controller
     }
 
     public function update(UpdateProfileRequest $request){
+
+        $user = auth()->user();
+
         $data = $request->safe()->except('image');
         if($request->hasFile('image')){
+            if ($user->image !== asset('images/profile.svg')) {
+                $relativePath = str_replace('/storage/', '', parse_url($user->image, PHP_URL_PATH));
+                Storage::disk('public')->delete($relativePath);
+            }
             $data['image'] = Storage::disk('users')->put('/', $request->file('image'));
         }
-        $user = auth()->user();
+        
+        if($request->remove_image == true && !$request->hasFile('image')){
+            $url = $user->image; 
+            $relativePath = parse_url($url, PHP_URL_PATH); // EXTRAE UNA RUTA RELATIVA
+            $relativePath = str_replace('/storage/', '', $relativePath); // ELIMINA LA PARTE DE STORAGE
+            
+            $data['image'] = null;
+            Storage::disk('public')->delete($relativePath);
+        }
+        
         $user->fill($data)->save();
-
-        return view('dashboard.profile.index', [
-            'posts' => Post::where('user_id', Auth::user()->id)->orderBy('created_at','DESC')->get(),
-            'user' => $user
-        ]);
+        $posts = Post::withCount(['likes', 'comments'])->where('user_id', $user->id)->orderBy('created_at','DESC')->get();
+        return view('dashboard.profile.index', compact('posts', 'user'));
 
     }
 

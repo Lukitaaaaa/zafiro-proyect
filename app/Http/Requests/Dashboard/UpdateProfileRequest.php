@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UpdateProfileRequest extends FormRequest
 {
+    
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -42,7 +43,7 @@ class UpdateProfileRequest extends FormRequest
         ];
     }
     protected function prepareForValidation()
-    {
+    { 
         $user = auth()->user();
         $changeSlug = $user->username !== $this->get('username') || !$user->slug;
         $this->merge([
