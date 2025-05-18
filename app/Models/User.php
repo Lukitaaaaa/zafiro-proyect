@@ -53,6 +53,16 @@ class User extends Authenticatable
         return $this->likes()->where('post_id', $post->id)->exists();
     }
 
+    public function likesComment()
+    {
+        return $this->belongsToMany(Comment::class, 'comment_like')->withTimestamps();
+    }
+    
+    public function isLikedComment(Comment $comment)
+    {
+        return $this->likesComment()->where('comment_id', $comment->id)->exists();
+    }
+
     public function image(): Attribute{
         return new Attribute(get: fn($value) => $value ? Storage::disk('users')->url($value) : asset('images/profile.svg'));
     }

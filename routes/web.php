@@ -54,6 +54,8 @@ Route::name('dashboard.')->middleware('auth')->group(function(){
 
     Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post}/unlike', [LikeController::class, 'unlike'])->name('posts.unlike');
+    Route::post('/posts/{post}/comments/{comment}/like', [LikeController::class, 'likeComment'])->name('comments.like');
+    Route::post('/posts/{post}/comments/{comment}/unlike', [LikeController::class, 'unlikeComment'])->name('comments.unlike');
 });
 
 

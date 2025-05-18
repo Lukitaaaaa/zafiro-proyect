@@ -51,8 +51,7 @@ class ProfileController extends Controller
         }
         
         $user->fill($data)->save();
-        $posts = Post::withCount(['likes', 'comments'])->where('user_id', $user->id)->orderBy('created_at','DESC')->get();
-        return view('dashboard.profile.index', compact('posts', 'user'));
+        return redirect()->route('dashboard.profile', $user)->with('success', 'Profile updated successfully');
 
     }
 
