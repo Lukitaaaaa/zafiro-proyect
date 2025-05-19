@@ -50,6 +50,7 @@ Route::name('dashboard.')->middleware('auth')->group(function(){
     Route::resource('/posts', PostController::class)->except('index');
 
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('/comments/{comment}/reply', [CommentController::class, 'reply'])->name('comments.reply');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
     Route::post('/posts/{post}/like', [LikeController::class, 'like'])->name('posts.like');

@@ -55,6 +55,13 @@
     .menu-comments:hover{
         background-color: rgb(140, 140, 140, 0.1);
     }
+
+    .comments-box{
+        margin: 0px 75px;
+        padding: 1rem 0px;
+        display: grid;
+        gap: .5rem;
+    }
 </style>
 
 <main class=" w-100 py-5" style="margin-left: 240px!important;">
@@ -139,7 +146,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full border mt-3 mx-auto" style="width: 895px; background-color: black;">
+    <div class="w-full border mt-3 mx-auto" style="width: 620px; background-color: black;">
         {{-- input-add-comment --}}
         <form action="{{route('dashboard.comments.store', $post->id)}}" method="POST" class="d-flex align-items-center justify-content-between m-0 border-bottom" style="padding: 1rem 75px;" >
             @csrf
@@ -152,26 +159,31 @@
                     class="object-fit-cover rounded-circle"
                 >
             </div>
-            <input type="text" name="content" id="content" class="form-control w-100" placeholder="Write a comment...">
+            <input type="text" name="content" id="content" class="form-control w-100 rounded-pill" placeholder="Write a comment...">
             <button id="add-comment-btn" class="button ms-3">
                 <span id="button-text">Publish</span>
                 <span id="spinner" class="spinner-border text-primary spinner-border-sm d-none" role="status" aria-hidden="true"></span>
             </button>
         </form>
         {{-- comments  --}}
-        @forelse($post->comments as $comment) 
-            @include('components.comment')
-        @empty
-            <div class="text-center py-3">
-                <span class="text-muted">No comments yet. Be the first to comment!</span>
-            </div>
-        @endforelse
+        <div class="comments-box">
+            @forelse($post->comments as $comment) 
+                <x-comment :comment="$comment" :post="$post" />
+            @empty
+                <div class="text-center py-3">
+                    <span class="text-muted">No comments yet. Be the first to comment!</span>
+                </div>
+            @endforelse
+        </div>
     </div>
 </main>
 
 @endsection
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        //HABILITAR EL BOTON DE RESPONDER CUANDO SE ESCRIBE EN EL INPUT
+        //DESABILITARLO CUANDO NO HAY NADA EN EL INPUT O SE ENVIAN LOS DATOS
 
         const form = document.querySelector('form[action="{{ route('dashboard.comments.store', $post->id) }}"]');
         const button = document.getElementById('add-comment-btn');
@@ -188,5 +200,61 @@
             document.getElementById('button-text').classList.add('d-none'); // Ocultar el texto del boton
             document.getElementById('spinner').classList.remove('d-none'); // Mostrar el spinner
         });
+
+        //MOSTRAR Y OCULTAR EL FORMULARIO DE RESPUESTA
+
+        const toggleForm = document.querySelectorAll('.reply');
+        const formReply = document.querySelectorAll('.form');
+        const showReplies = document.querySelectorAll('.show-replies');
+        const replies = document.querySelectorAll('.replies');
+
+        toggleForm.forEach((reply, index) => { 
+            reply.addEventListener('click', function() {
+                formReply[index].classList.toggle('d-none');
+            });
+        });
+
+        //HABILITAR LOS BOTONES DE RESPONDER CUANDO SE ESCRIBE EN EL INPUT CORRESPONDIENTE
+        //DESABILITARLOS CUANDO NO HAY NADA EN EL INPUT O SE ENVIAN LOS DATOS
+
+        const addReplyBtn = document.querySelectorAll('#add-reply-btn');
+        const inputReply = document.querySelectorAll('#content-reply');
+        
+        addReplyBtn.forEach((btn, index) => {
+            btn.disabled = inputReply[index].value.trim() === '';
+        });
+
+        inputReply.forEach((input, index) => {
+            input.addEventListener('input', () => {
+                addReplyBtn[index].disabled = input.value.trim() === '';
+            });
+        });
+
+        formReply.forEach((form, index) => {
+            form.addEventListener('submit', function () {
+                addReplyBtn[index].disabled = true;
+                const buttonText = form.querySelector('#button-text');
+                const spinner = form.querySelector('#spinner');
+                buttonText.classList.add('d-none'); // Ocultar el texto del boton
+                spinner.classList.remove('d-none'); // Mostrar el spinner
+            });
+        });
+
+        //MOSTRAR Y OCULTAR LAS RESPUESTAS
+
+        showReplies.forEach(show => { // Agregar el evento click a cada botón que tenga la clase show-replies
+            show.addEventListener('click', function() {
+                const commentId = show.getAttribute('data-comment-id');
+                const repliesList = document.querySelector(`.replies[data-comment-id="${commentId}"]`);
+                if(repliesList){
+                    repliesList.classList.toggle('d-none');
+                    const spans = show.querySelectorAll('span');
+                    spans.forEach(span => span.classList.toggle('d-none'));
+                }
+            });
+        })
+
+        // const addReplyBtn = document.querySelectorAll('#add-reply-btn');
+        // const formReplys = document.querySelectorAll('.form-reply');
     });
 </script>

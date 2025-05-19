@@ -1,4 +1,4 @@
-<article class="d-flex border-bottom" style="padding: .5rem 75px">
+<article class="d-flex " style="padding: 0">
     <div class="me-3">
         <img 
             src="{{ $comment->user->image }}" 
@@ -37,7 +37,7 @@
                 
             </div>
         </header>
-        <p class="text-break">{{$comment->content}}</p>
+        <p class="text-break mb-2">{{$comment->content}}</p>
         <div class="d-flex gap-4">
             <div class="likes d-flex column-gap-2 align-items-center">
                 @if(auth()->user()->isLikedComment($comment))
@@ -53,41 +53,47 @@
                 @endif
                 <span>{{ $comment->likes()->count() }}</span>
             </div>
-            <div id="reply" class="answers d-flex column-gap-2 align-items-center">
-                <i class="bi bi-chat-fill"></i>
-                <span>Reply</span>
-            </div>
+            @if(!$comment->isReply())
+                <div class="reply d-flex column-gap-2 align-items-center">
+                    <i class="bi bi-chat-fill"></i>
+                    <span>Reply</span>
+                </div>
+            @endif
         </div>
-        <form action="" method="POST" id="form" class="d-none d-flex align-items-center justify-content-between m-0" style="padding: 1rem 0px;" >
-            @csrf
-            <div class="me-3">
-                <img 
-                    src="{{ auth()->user()->image }}" 
-                    alt="{{ auth()->user()->name }}"
-                    width="32" 
-                    height="32" 
-                    class="object-fit-cover rounded-circle"
-                >
-            </div>
-            <input type="text" name="content" id="content" class="form-control w-100" placeholder="Write a comment...">
-            <button id="add-comment-btn" class="button ms-3">
-                <span id="button-text">Publish</span>
-                <span id="spinner" class="spinner-border text-primary spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-            </button>
-        </form>
-        {{-- replies --}}
-        {{-- <div class="py-1">
-            <span class="text-muted">View replies (1)</span>
-        </div> --}}
+        @if(!$comment->isReply())
+            <form action="{{ route('dashboard.comments.reply', $comment)}}" method="POST" class="form d-none d-flex align-items-center justify-content-between m-0" style="padding: 1rem 0px;" >
+                @csrf
+                <div class="me-3">
+                    <img 
+                        src="{{ auth()->user()->image }}" 
+                        alt="{{ auth()->user()->name }}"
+                        width="32" 
+                        height="32" 
+                        class="object-fit-cover rounded-circle"
+                    >
+                </div>
+                <input type="text" name="content" id="content-reply" class="form-control w-100 rounded-pill" placeholder="Write a reply...">
+                <button id="add-reply-btn" class="button ms-3 rounded-pill">
+                    <span id="button-text">Publish</span>
+                    <span id="spinner" class="spinner-border text-primary spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                </button>
+            </form>
+            {{-- replies --}}
+            @if($comment->replies->count() > 0)
+                <button type="button" class="show-replies button py-1" data-comment-id="{{ $comment->id }}" style="width: 120px; text-align: left; display:block">
+                    <span class="text-muted d-none">Hide replies</span>
+                    <span class="text-muted" >{{ 'View replies (' . $comment->replies->count() .')' }}</span>
+                </button>
+            @endif
+            
+            <ol class="replies d-none position-relative border-start border-4" data-comment-id="{{ $comment->id }}" style="list-style: none; margin:10px 0 0 10px; padding-left: 15px;">
+                @forelse($comment->replies as $reply)
+                    <li>
+                        <x-comment :comment="$reply" :post="$post" />
+                    </li>
+                @empty
+                @endforelse
+            </ol>
+        @endif
     </div>
 </article>
-<script>
-    const replyForm = document.getElementById('reply');
-    const form = document.getElementById('form');
-    
-    replyForm.addEventListener('click', function() {
-        form.classList.toggle('d-none');
-    });
-
-
-</script>

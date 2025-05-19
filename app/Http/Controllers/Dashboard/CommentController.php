@@ -21,9 +21,24 @@ class CommentController extends Controller
     }
 
     public function destroy(Comment $comment){
-
-        $id = $comment->post_id;
+        if($comment->isReply()){
+            $id = $comment->commentParent->post_id;
+        }
+        else{
+            $id = $comment->post_id;
+        }
         $comment->delete();
         return redirect()->route('dashboard.posts.show', $id)->with('success', 'Comentario eliminado correctamente');
+    }
+
+    public function reply(Comment $comment){
+        $reply = new Comment();
+        $reply->content = request('content');
+        $reply->user_id = auth()->id(); 
+        $reply->parent_id = $comment->id;
+        $reply->save();
+        
+
+        return redirect()->route('dashboard.posts.show', $comment->post_id)->with('success', 'Comentario creado correctamente');
     }
 }
