@@ -23,6 +23,12 @@ class HomeController extends Controller
 
     }
 
+    public function explore(){
+
+        $posts = Post::with(['user'])->withCount(['likes', 'comments'])->orderBy('created_at','DESC')->get();
+        return view('dashboard.explore', compact('posts'));
+    }
+
     public function showUsers(){
 
         $userAuth = auth()->user();
