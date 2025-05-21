@@ -29,6 +29,19 @@ class HomeController extends Controller
         return view('dashboard.explore', compact('posts'));
     }
 
+    public function searchUsers(Request $request){
+
+        $userAuth = auth()->user();
+        
+        $users = User::where('id', '!=', $userAuth->id)
+                ->whereNotIn('id', $userAuth->followings()->pluck('users.id'))
+                ->where('name', 'LIKE', '%'.$request->search.'%')
+                ->orderBy('created_at','DESC')
+                ->get();
+
+        return view('dashboard.show-users', compact('users'));
+    }
+
     public function showUsers(){
 
         $userAuth = auth()->user();
