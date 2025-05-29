@@ -38,6 +38,7 @@ Route::name('dashboard.')->middleware('auth')->group(function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home'); 
     Route::get('/home/users', [HomeController::class, 'showUsers'])->name('show-users');
     Route::get('/explore', [HomeController::class, 'explore'])->name('explore');
+    Route::get('/search-users', [HomeController::class, 'searchUsers'])->name('search-users');
     Route::get('/liked-posts', [HomeController::class, 'likedPosts'])->name('posts-liked');
     Route::get('/settings', [HomeController::class, 'settings'])->name('settings');
     

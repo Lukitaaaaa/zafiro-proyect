@@ -29,19 +29,6 @@ class HomeController extends Controller
         return view('dashboard.explore', compact('posts'));
     }
 
-    public function searchUsers(Request $request){
-
-        $userAuth = auth()->user();
-        
-        $users = User::where('id', '!=', $userAuth->id)
-                ->whereNotIn('id', $userAuth->followings()->pluck('users.id'))
-                ->where('name', 'LIKE', '%'.$request->search.'%')
-                ->orderBy('created_at','DESC')
-                ->get();
-
-        return view('dashboard.show-users', compact('users'));
-    }
-
     public function showUsers(){
 
         $userAuth = auth()->user();
@@ -65,5 +52,16 @@ class HomeController extends Controller
 
     public function settings() {
         return view('dashboard.settings');
+    }
+
+    public function searchUsers(Request $request) {
+        
+        $query = $request->input('q');
+        $usuarios = User::where('username', 'LIKE', '%'. $query .'%')
+                ->orderBy('created_at','DESC')
+                ->take(7)
+                ->get();
+
+        return response()->json($usuarios);
     }
 }
