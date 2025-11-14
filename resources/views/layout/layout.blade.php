@@ -52,7 +52,7 @@
 <body >
     <div class="d-flex">
         {{-- @include('layout.banner') --}}
-        <x-banner :name="auth()->user()->name" :username="auth()->user()->username" :image="auth()->user()->image"/>
+        <x-banner :name="auth()->user()->name" :username="auth()->user()->username" :image="auth()->user()->image" :unreadNotifications="auth()->user()->unreadNotifications()->count()" />
         @yield('content')
 
     </div>

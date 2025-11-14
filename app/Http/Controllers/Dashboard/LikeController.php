@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use App\Models\Post;
 use App\Models\Comment;
-use Illuminate\Http\Request;
+use App\Events\PostLiked;
 
 class LikeController extends Controller
 {
     public function like(Post $post){
         $liker = auth()->user();
         $liker->likes()->attach($post);
+
+        event(new PostLiked($liker, $post));
         return redirect()->route('dashboard.posts.show', $post->id);
     }
 

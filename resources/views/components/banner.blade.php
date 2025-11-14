@@ -1,7 +1,8 @@
 @props([
     'name' => '',
     'username' => '',
-    'image' => ''
+    'image' => '',
+    'unreadNotifications' => 0,
 ])
 
 <style>
@@ -57,6 +58,16 @@
                 <a href="{{route('dashboard.posts.create')}}" class="{{(Route::is('dashboard.posts.create')) ? 'fw-bold':'fw-normal'}} nav-link text-white d-flex align-items-center justify-content-start">
                     <i class="bi bi-plus-lg me-2"></i>
                     Post
+                </a>
+            </li>
+            <li>
+                <a href="{{route('dashboard.notifications')}}" class="{{(Route::is('dashboard.notifications')) ? 'fw-bold':'fw-normal'}} nav-link text-white d-flex align-items-center justify-content-start">
+                    <i class="{{ (Route::is('dashboard.notifications')) ? 'bi bi-bell-fill':'bi bi-bell' }} me-2 position-relative">
+                        @if ($unreadNotifications > 0)
+                            <span class="position-absolute bottom-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                        @endif
+                    </i>
+                    Notifications
                 </a>
             </li>
             <li>

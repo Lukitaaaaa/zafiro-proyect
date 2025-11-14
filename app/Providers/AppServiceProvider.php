@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+
+use App\Events\PostLiked;
+use App\Listeners\CreatePostLikedNotification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Event::listen(
+            PostLiked::class,
+            [CreatePostLikedNotification::class, 'handle']
+        );
     }
 }

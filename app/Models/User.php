@@ -63,6 +63,21 @@ class User extends Authenticatable
         return $this->likesComment()->where('comment_id', $comment->id)->exists();
     }
 
+    // public function comments()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function unreadNotifications()
+    {
+        return $this->notifications()->where('read', false);
+    }
+
     public function image(): Attribute{
         return new Attribute(get: fn($value) => $value ? Storage::disk('users')->url($value) : asset('images/profile.svg'));
     }
