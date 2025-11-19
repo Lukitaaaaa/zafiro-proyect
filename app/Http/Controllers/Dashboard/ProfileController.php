@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Events\UserFollowed;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -60,6 +61,8 @@ class ProfileController extends Controller
         $follower = auth()->user();
 
         $follower->followings()->attach($user);
+
+        UserFollowed::dispatch($follower, $user);
         return redirect()->route('dashboard.profile', $user);
     }
 

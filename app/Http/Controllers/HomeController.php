@@ -51,20 +51,25 @@ class HomeController extends Controller
     }
 
     public function notifications() {
-        return view('dashboard.notifications');
-    }
-
-    public function markAsRead(Request $request, $notificationId) {
-        $user = auth()->user();
-        $notification = $user->notifications()->where('id', $notificationId)->first();
-
-        if ($notification) {
+        $notidications = auth()->user()->unreadNotifications();
+        foreach($notidications as $notification) {
             $notification->read = true;
             $notification->save();
         }
-
-        return redirect()->route('dashboard.notifications');
+        return view('dashboard.notifications');
     }
+
+    // public function markAsRead(Request $request, $notificationId) {
+    //     $user = auth()->user();
+    //     $notification = $user->notifications()->where('id', $notificationId)->first();
+
+    //     if ($notification) {
+    //         $notification->read = true;
+    //         $notification->save();
+    //     }
+
+    //     return redirect()->route('dashboard.notifications');
+    // }
 
     public function settings() {
         return view('dashboard.settings');

@@ -12,10 +12,13 @@ use App\Events\PostLiked;
 class LikeController extends Controller
 {
     public function like(Post $post){
+        \Log::info('LikeController::like called', ['user' => auth()->id(), 'post' => $post->id]);
+
         $liker = auth()->user();
         $liker->likes()->attach($post);
 
-        event(new PostLiked($liker, $post));
+        // event(new PostLiked($liker, $post));
+        PostLiked::dispatch($liker, $post);
         return redirect()->route('dashboard.posts.show', $post->id);
     }
 

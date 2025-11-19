@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Events\PostCommented;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
@@ -17,6 +18,7 @@ class CommentController extends Controller
         $comment->post_id = $post->id; 
         $comment->save();
 
+        PostCommented::dispatch(auth()->user(), $comment);
         return redirect()->route('dashboard.posts.show', $post->id)->with('success', 'Comentario creado correctamente');
     }
 

@@ -43,8 +43,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('dashboard.explore')}}" class="{{(Route::is('dashboard.posts-liked')) ? 'fw-bold':'fw-normal'}} nav-link text-white d-flex align-items-center justify-content-start ">
-                    <i class="{{ (Route::is('dashboard.posts-liked')) ? 'bi bi-search-fill':'bi bi-search' }} me-2"></i>
+                <a href="{{route('dashboard.explore')}}" class="{{(Route::is('dashboard.explore')) ? 'fw-bold':'fw-normal'}} nav-link text-white d-flex align-items-center justify-content-start ">
+                    <i class="bi bi-search me-2"></i>
                     Search
                 </a>
             </li>

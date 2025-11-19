@@ -75,7 +75,7 @@ class User extends Authenticatable
 
     public function unreadNotifications()
     {
-        return $this->notifications()->where('read', false);
+        return $this->notifications()->where('read', false)->get();
     }
 
     public function image(): Attribute{
