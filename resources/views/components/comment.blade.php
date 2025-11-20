@@ -43,12 +43,12 @@
                 @if(auth()->user()->isLikedComment($comment))
                     <form action="{{ route('dashboard.comments.unlike', [$post, $comment]) }}" method="post" class="m-0">
                         @csrf
-                        <button type="submit" class="btn-likes"><i class="bi bi-heart-fill text-danger"></i></button>
+                        <button type="submit" class="btn-like-toggle"><i class="bi bi-heart-fill text-danger"></i></button>
                     </form>
                 @else
                     <form action="{{ route('dashboard.comments.like', [$post, $comment]) }}" method="post" class="m-0">
                         @csrf
-                        <button type="submit" class="btn-likes"><i class="bi bi-heart text-danger"></i></button>
+                        <button type="submit" class="btn-like-toggle"><i class="bi bi-heart text-danger"></i></button>
                     </form>
                 @endif
                 <span>{{ $comment->likes()->count() }}</span>
@@ -73,14 +73,14 @@
                     >
                 </div>
                 <input type="text" name="content" id="content-reply" class="form-control w-100 rounded-pill" placeholder="Write a reply...">
-                <button id="add-reply-btn" class="button ms-3 rounded-pill">
+                <button id="add-reply-btn" class="publish-btn ms-3 rounded-pill">
                     <span id="button-text">Publish</span>
                     <span id="spinner" class="spinner-border text-primary spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                 </button>
             </form>
             {{-- replies --}}
             @if($comment->replies->count() > 0)
-                <button type="button" class="show-replies button py-1" data-comment-id="{{ $comment->id }}" style="width: 120px; text-align: left; display:block">
+                <button type="button" class="show-replies publish-btn py-1" data-comment-id="{{ $comment->id }}" style="width: 130px; text-align: left; display:block">
                     <span class="text-muted d-none">Hide replies</span>
                     <span class="text-muted" >{{ 'View replies (' . $comment->replies->count() .')' }}</span>
                 </button>
