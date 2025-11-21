@@ -1,35 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-@once
-<style>
-    
-    :root {
-        --surface-primary: #111;
-        --surface-secondary: #181818;
-        --surface-elevated: #202020;
-        --border-color: #2a2a2a;
-        --radius-lg: 1.25rem;
-        --radius-md: .75rem;
-        --transition-fast: .18s ease;
-    }
-    
-    .avatar { width:40px !important; height:40px !important; }
-    .avatar img { height:100%; object-fit:cover; border-radius:50%; border:1px solid var(--border-color); }
-    .how-to-follow-container { max-width:290px; }
-    .follow-shell { background:linear-gradient(145deg,var(--surface-primary),var(--surface-secondary)); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:.9rem .9rem .75rem; box-shadow:0 4px 14px -4px rgba(0,0,0,.35); }
-    .follow-shell h5 { font-size:.95rem; font-weight:600; letter-spacing:.5px; margin:0 0 .75rem; }
-    .follow-list { display:flex; flex-direction:column; gap:.6rem; }
-    .follow-item { display:flex; align-items:center; gap:.6rem; padding:.45rem .55rem; border-radius:.65rem; transition:var(--transition-fast); position: relative;}
-    .follow-item:hover { background:rgba(255,255,255,.06); }
-    .follow-item a.mb-0 { font-weight:500; text-decoration:none; }
-    .follow-item p { font-size:.7rem; color:#999; }
-    .follow-item form button { padding:.35rem .8rem; font-size:.7rem; font-weight:600; }
-    .show-more-wrapper { margin-top:.75rem; }
-    .show-more-wrapper a { font-size:.7rem; background:var(--surface-elevated); border:1px solid var(--border-color); color:#0d6efd; border-radius:var(--radius-md); padding:.45rem .75rem; text-decoration:none; display:inline-block; transition:var(--transition-fast); }
-    .show-more-wrapper a:hover { background:#262626; color:#4da3ff; }
-</style>
-@endonce
+{{-- Styles extracted to resources/css/components/follow.css via Vite --}}
 <main class="d-flex flex-row w-100" style="margin-left: 240px;">
     <div class="feed mx-auto">
         <div class="container py-3" style="width: 895px;">

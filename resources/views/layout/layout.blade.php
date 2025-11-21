@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}</title>
-    {{-- <link rel="icon" href="{{asset('images/zafiro-logo.png')}}"> --}}
-    <link rel="stylesheet" href="../../css/app.css">
+    {{-- <link rel="icon" href="{{ asset('images/zafiro-logo.png') }}"> --}}
+    @vite(['resources/css/app.css','resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .columna{

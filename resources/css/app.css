@@ -1,4 +1,9 @@
-.input-add-comment{
+@import './theme.css';
+@import './components/follow.css';
+@import './components/banner.css';
+@import './views/profile-edit.css';
+
+.input-add-comment {
     border: 0;
     border-bottom: 2px solid #f1f1f1;
     outline: 0;

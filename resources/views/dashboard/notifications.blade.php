@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-    <div class="w-100 py-3" style="margin-left: 240px;">
+    <main class="w-100 py-3" style="margin-left: 240px;">
         <div class="mx-auto" style="max-width: 600px;">
             <h1>Notifications</h1>
             @forelse(auth()->user()->notifications()->latest()->get() as $notification)
@@ -44,5 +44,5 @@
                 <p class="text-muted">No notifications yet.</p>
             @endforelse
         </div>
-    </div>
+    </main>
 @endsection

@@ -41,7 +41,6 @@ Route::name('dashboard.')->middleware('auth')->group(function(){
     Route::get('/search-users', [HomeController::class, 'searchUsers'])->name('search-users');
     Route::get('/liked-posts', [HomeController::class, 'likedPosts'])->name('posts-liked');
     Route::get('/notifications', [HomeController::class, 'notifications'])->name('notifications');
-    Route::post('/notifications/{notification}/mark-as-read', [HomeController::class, 'markAsRead'])->name('notifications.mark-as-read');
     Route::get('/settings', [HomeController::class, 'settings'])->name('settings');
     
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
