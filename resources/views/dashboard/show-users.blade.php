@@ -1,16 +1,11 @@
 @extends('layout.layout')
 
 @section('content')
-<style>
-    .users-list {
-        max-width: 560px;
-    }
-</style>
 
-<div class=" w-100 py-3" style="margin-left: 240px;">
+<div class=" w-100 py-3">
     <div class="users-list mx-auto">
         <header class="d-flex align-items-center mb-3">
-            <a class="btn btn-primary-soft rounded-circle icon-lg fs-3" href="{{ route('dashboard.home') }}"><i class="bi bi-arrow-left"></i></a>
+            <a class="btn btn-primary-soft rounded-circle icon-lg fs-3" href="{{ route('dashboard.home') }}" onclick="routeTo(event, '{{ route('dashboard.home') }}')" data-route="{{ route('dashboard.home') }}" data-icon="home"><i class="bi bi-arrow-left"></i></a>
             <h3>Suggested for you</h3>
         </header>
 

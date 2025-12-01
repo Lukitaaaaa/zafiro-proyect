@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-<main class=" w-100 py-5" style="margin-left: 240px!important;">
+<main class=" w-100 py-5">
     <div class="mx-auto" style="width: 900px;">
         @include('layout.header-profile')
         <hr>

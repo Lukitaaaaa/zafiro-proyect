@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-<main class="w-100 py-3" style="margin-left: 240px!important;">
+<main class="w-100 py-3">
     <div class="profile-shell" aria-label="Editar perfil">
         <h3 class="text-center mb-3">Edit profile</h3>
         <form action="{{route('dashboard.profile.update', $user)}}" method="POST" enctype="multipart/form-data" class="d-flex flex-column" aria-label="Formulario de edición de perfil">

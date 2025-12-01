@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-<main class=" w-100 py-3" style="margin-left: 240px!important;">
+<main class=" w-100 py-3">
     
     <div class="mx-auto w-50">
         <h3>Profile Settings</h3>

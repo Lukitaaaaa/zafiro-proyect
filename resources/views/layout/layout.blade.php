@@ -7,52 +7,17 @@
     {{-- <link rel="icon" href="{{ asset('images/zafiro-logo.png') }}"> --}}
     @vite(['resources/css/app.css','resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        .columna{
-            padding: 0 !important;
-            width: 285px !important;
-        }
-
-        .post-container{
-            width: 285px;
-            height: 285px!important;
-            overflow: hidden;
-        }
-
-        .overlay{
-            transition: all 0.2s ease;
-            opacity: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .overlay i, .overlay p{
-            font-size: 20px;
-            
-        }
-
-        .post-container:hover img{
-            opacity: 0.4;
-        }
-
-        .post-container:hover .overlay{
-            opacity: 1;
-        }
-
-
-        /* .how-to-follow-container{
-            width: 260px!important;
-        } */
-    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body >
+    <div class="nav-progress-bar"></div>
     <div class="d-flex">
         {{-- @include('layout.banner') --}}
-        <x-banner :name="auth()->user()->name" :username="auth()->user()->username" :image="auth()->user()->image" :unreadNotifications="auth()->user()->unreadNotifications()->count()" />
+        <x-banner :name="auth()->user()->name" 
+            :username="auth()->user()->username" 
+            :image="auth()->user()->image" 
+            :unreadNotifications="auth()->user()->unreadNotifications()->count()" 
+        />
         @yield('content')
 
     </div>

@@ -15,7 +15,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.btn-like-toggle {
+/* .btn-like-toggle {
     border: none;
     background: none;
     padding: 0;
@@ -28,7 +28,7 @@ body {
     transition: var(--transition-fast);
     cursor: pointer;
 }
-.btn-like-toggle:hover { background: rgba(220,20,60,.12); }
+.btn-like-toggle:hover { background: rgba(220,20,60,.12); } */
 
 .publish-btn, .button.publish-reply {
     border: none;

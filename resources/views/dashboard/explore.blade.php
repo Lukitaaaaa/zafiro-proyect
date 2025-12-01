@@ -8,7 +8,7 @@
         cursor: pointer; /* Cambia el cursor a pointer para indicar que es interactivo */
     }
 </style>
-<main class="d-flex flex-row w-100" style="margin-left: 240px;">
+<main class="d-flex flex-row w-100">
     
     <div class="feed mx-auto">
         <div class="container py-3" style="width: 895px;">
