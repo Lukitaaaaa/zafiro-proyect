@@ -3,8 +3,42 @@
 @import './components/banner.css';
 @import './components/nav-progress.css';
 @import './views/profile-edit.css';
+@import './views/post-view.css';
+
+.hover-secondary:hover {
+    background-color: var(--bs-secondary); /* Usa la variable de Bootstrap para el color secundario */
+    color: white; /* Cambia el texto a blanco para mejor contraste */
+    cursor: pointer; /* Cambia el cursor a pointer para indicar que es interactivo */
+}
 
 /* HOME */
+
+/* Empty feed state */
+.empty-feed-state {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.empty-feed-icon {
+    color: var(--bs-secondary);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.empty-feed-state h3 {
+    font-size: 1.5rem;
+    color: var(--bs-light);
+}
+
+.empty-feed-state p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
 
 .columna{
     padding: 0 !important;
@@ -87,7 +121,7 @@
     color: #ddd;
 }
 
-.btn-like-toggle {
+.btn-like-toggle, .btn-comment {
     border: none;
     background: none;
     padding: 0;

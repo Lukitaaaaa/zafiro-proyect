@@ -2,11 +2,15 @@
 
 @section('content')
 
-<div class=" w-100 py-3">
+<main class=" w-100 py-3">
     <div class="users-list mx-auto">
         <header class="d-flex align-items-center mb-3">
-            <a class="btn btn-primary-soft rounded-circle icon-lg fs-3" href="{{ route('dashboard.home') }}" onclick="routeTo(event, '{{ route('dashboard.home') }}')" data-route="{{ route('dashboard.home') }}" data-icon="home"><i class="bi bi-arrow-left"></i></a>
-            <h3>Suggested for you</h3>
+            <a class="text-white me-3" href="{{ route('dashboard.home') }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                </svg>
+            </a>
+            <h3 class="mb-0">Suggested for you</h3>
         </header>
 
         @foreach ($users as $user)
@@ -36,5 +40,5 @@
         </article>
         @endforeach
     </div>
-</div>
+</main>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -66,7 +67,14 @@ class PostController extends Controller
         }, 'comments.user', 'user']);
 
         $editing = false;
-        return view('dashboard.post.post-view', compact('post', 'editing'));
+        
+        $userAuth = auth()->user();
+        $users = User::where('id', '!=', $userAuth->id)
+                ->whereNotIn('id', $userAuth->followings()->pluck('users.id'))
+                ->orderBy('created_at','DESC')
+                ->take(5)
+                ->get();
+        return view('dashboard.post.post-view', compact('post', 'editing', 'users'));
     }
 
     /**

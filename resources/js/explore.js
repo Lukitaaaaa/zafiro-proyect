@@ -60,15 +60,16 @@ function consultaAjax(query) {
                     nameContainer.className = 'd-flex flex-column';
                     nameContainer.appendChild(nameElement);
                     nameContainer.appendChild(usernameElement);
+                    const linkElement = document.createElement('a');
+                    linkElement.href = `/profile/${user.username}`;
+                    linkElement.className = 'position-absolute w-100 h-100';
 
-                    userElement.className = 'user-result p-2 d-flex align-items-center hover-secondary';
+                    userElement.className = 'user-result p-2 d-flex align-items-center position-relative hover-secondary';
                     userElement.appendChild(image);
                     userElement.appendChild(nameContainer);
+                    userElement.appendChild(linkElement);
 
                     resultsContainer.appendChild(userElement);
-                    userElement.addEventListener('click', function () {
-                        window.location.href = `/profile/${user.id}`;
-                    });
                 });
             }
         },
@@ -78,6 +79,98 @@ function consultaAjax(query) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', setupUserSearch);
+function searchUsers() {
+    const usersResults = document.getElementById('btnSearch');
+    if (!usersResults) return;
+    console.log('Search button found, binding event listener');
+    usersResults.addEventListener('click', function (e) {
+        e.preventDefault();
+        console.log('Search button clicked');
+        const query = document.getElementById('search').value;
+        console.log('Searching for:', query);
+        showUsersResults(query);
+    });
+}
 
-// Optional future improvement: replace jQuery AJAX with fetch for consistency.
+function showUsersResults(query) {
+    fetch(`/search-users?q=${encodeURIComponent(query)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const usersResultsContainer = document.getElementById('users-list');
+            console.log('Fetched users:', data);
+            usersResultsContainer.innerHTML = '';
+            if (data.length === 0) {
+                console.log('No users found');
+                usersResultsContainer.style.display = 'none';
+            } else {
+                usersResultsContainer.style.display = 'block';
+                data.forEach(user => {
+                    console.log('Rendering user:', user);
+                    const userElement = document.createElement('div');
+                    const image = document.createElement('img');
+                    image.src = user.image;
+                    image.alt = user.username;
+                    image.className = 'avatar-img rounded-circle object-fit-cover mb-2';
+                    image.width = 80;
+                    image.height = 80;
+
+                    const nameElement = document.createElement('span');
+                    nameElement.textContent = user.name;
+
+                    const linkElement = document.createElement('a');
+                    linkElement.href = `/profile/${user.username}`;
+                    linkElement.className = 'position-absolute w-100 h-100';
+
+                    userElement.className = 'user-result p-2 d-flex flex-column align-items-center position-relative';
+                    userElement.appendChild(image);
+                    userElement.appendChild(nameElement);
+                    userElement.appendChild(linkElement);
+
+                    usersResultsContainer.appendChild(userElement);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching users:', error);
+        });
+
+}
+
+function clearResults() {
+    const resultsContainer = document.getElementById('results');
+    if (resultsContainer) {
+        resultsContainer.innerHTML = '';
+        resultsContainer.style.display = 'none';
+    }
+}
+// function searchUsers(query) {
+//     return fetch(`/search-users?q=${encodeURIComponent(query)}`)
+//         .then(response => {
+//             console.log('Fetch response:', response);
+//             if (!response.ok) {
+//                 throw new Error('Network response was not ok');
+//             }
+//             return response.json();
+//         })
+//         .catch(error => {
+//             console.error('Error fetching users:', error);
+//             return [];
+//         });
+// }
+
+function initExploreScripts() {
+    setupUserSearch();
+    searchUsers();
+}
+
+
+// Inicializar en carga inicial
+document.addEventListener('DOMContentLoaded', initExploreScripts);
+
+// Re-inicializar cuando el contenido cambie (navegación SPA)
+document.addEventListener('content-loaded', initExploreScripts);

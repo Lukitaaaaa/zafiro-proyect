@@ -6,12 +6,12 @@
                 <a class="btn btn-primary w-50" href="{{route('dashboard.profile.edit')}}">Edit</a>
             @else
                 @if(auth()->user()->isFollowing($user))
-                    <form action="{{ route( 'dashboard.profile.unfollow', $user->id)}}" method="post" class="w-50">
+                    <form action="{{ route( 'dashboard.profile.unfollow', $user)}}" method="post" class="w-50">
                         @csrf
                         <button type="submit" class="btn btn-outline-light w-100">Unfollow</button>
                     </form>
                 @else
-                    <form action="{{ route( 'dashboard.profile.follow', $user->id)}}" method="post" class="w-50">
+                    <form action="{{ route( 'dashboard.profile.follow', $user)}}" method="post" class="w-50">
                         @csrf
                         <button type="submit" class="btn btn-primary w-100">Follow</button>
                     </form>

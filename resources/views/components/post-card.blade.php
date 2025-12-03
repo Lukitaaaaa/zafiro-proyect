@@ -2,8 +2,8 @@
     
     {{-- PARA QUE SE VEAN LAS IMAGENES DE LOS POSTS CREADOS POR EL FACTORY Y EL USUARIO --}}
 
-    @if($post->image == "http://localhost:8000/images/post.svg")
-        <img src="{{$post->image}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
+    @if($post->image == "http://127.0.0.1:8000/images/post.svg")
+        <img src="{{asset('images/post.svg')}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
     @else
         <img src="/storage/{{$post->image}}" class="card-img-top rounded-0 object-fit-cover position-absolute" alt="..." width="285" height="285" style="outline: none">
     @endif

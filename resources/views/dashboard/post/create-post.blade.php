@@ -28,7 +28,7 @@
     .create-submit-btn:not(:disabled) { box-shadow:0 0 0 1px rgba(13,110,253,.4); }
     .create-submit-btn:not(:disabled):hover { filter:brightness(1.1); }
 </style>
-<div class="w-100 py-3" style="margin-left: 240px">
+<main class="w-100 py-3">
     <div class="create-shell">
         <h3 class="text-center mb-3">Create post</h3>
         <form action="{{route('dashboard.posts.store')}}" method="POST" enctype="multipart/form-data" id="create-post-form" aria-label="Formulario creación de post">
@@ -51,7 +51,7 @@
             <button type="submit" class="btn btn-primary create-submit-btn w-100 mt-4" id="create-post-btn" disabled>Create</button>
         </form>
     </div>
-</div>
+</main>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const uploadPhoto = document.getElementById('upload-photo');

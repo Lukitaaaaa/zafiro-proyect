@@ -11,8 +11,13 @@ class HomeController extends Controller
     public function index(){
         $userAuth = auth()->user();
         
-        $posts = Post::with(['user'])->withCount(['likes', 'comments'])->orderBy('created_at','DESC')->get();
-
+        // Obtener los posts de los usuarios que el usuario autenticado sigue
+        $posts = Post::with(['user'])
+                ->withCount(['likes', 'comments'])
+                ->whereIn('user_id', $userAuth->followings()->pluck('users.id'))
+                ->orderBy('created_at','DESC')
+                ->get();
+        
         $users = User::where('id', '!=', $userAuth->id)
                 ->whereNotIn('id', $userAuth->followings()->pluck('users.id'))
                 ->orderBy('created_at','DESC')
@@ -58,18 +63,6 @@ class HomeController extends Controller
         }
         return view('dashboard.notifications');
     }
-
-    // public function markAsRead(Request $request, $notificationId) {
-    //     $user = auth()->user();
-    //     $notification = $user->notifications()->where('id', $notificationId)->first();
-
-    //     if ($notification) {
-    //         $notification->read = true;
-    //         $notification->save();
-    //     }
-
-    //     return redirect()->route('dashboard.notifications');
-    // }
 
     public function settings() {
         return view('dashboard.settings');

@@ -11,35 +11,32 @@
             <li class="nav-item">
                 <a href="{{route('dashboard.home')}}" 
                     id="nav-link" 
-                    class="nav-link {{ Route::is('dashboard.home') ? 'active' : '' }}" 
+                    class="nav-link navigation {{ Route::is('dashboard.home') ? 'active' : '' }}" 
                     data-route="{{ route('dashboard.home') }}" data-icon="home"
-                    aria-current="page" 
-                    onclick="routeTo(event, '{{ route('dashboard.home') }}')">
+                    aria-current="page" >
                     <i class="{{ Route::is('dashboard.home') ? 'bi bi-house-door-fill' : 'bi bi-house-door' }}"></i>
                     <span>Home</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('dashboard.explore')}}" 
-                    class="nav-link {{ Route::is('dashboard.explore') ? 'active' : '' }}" 
-                    data-route="{{ route('dashboard.explore') }}" data-icon="search"
-                    onclick="routeTo(event, '{{ route('dashboard.explore') }}')">
+                    class="nav-link navigation {{ Route::is('dashboard.explore') ? 'active' : '' }}" 
+                    data-route="{{ route('dashboard.explore') }}" data-icon="search">
                     <i class="bi bi-search"></i>
                     <span>Search</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('dashboard.posts-liked')}}" 
-                    class="nav-link {{ Route::is('dashboard.posts-liked') ? 'active' : '' }}" 
-                    data-route="{{ route('dashboard.posts-liked') }}" data-icon="heart"
-                    onclick="routeTo(event, '{{ route('dashboard.posts-liked') }}')">
+                    class="nav-link navigation {{ Route::is('dashboard.posts-liked') ? 'active' : '' }}" 
+                    data-route="{{ route('dashboard.posts-liked') }}" data-icon="heart">
                     <i class="{{ Route::is('dashboard.posts-liked') ? 'bi bi-heart-fill' : 'bi bi-heart' }}"></i>
                     <span>Likes</span>
                 </a>
             </li>
             <li>
                 <a href="{{route('dashboard.posts.create')}}" 
-                    class="nav-link {{ Route::is('dashboard.posts.create') ? 'active' : '' }}"
+                    class="nav-link navigation {{ Route::is('dashboard.posts.create') ? 'active' : '' }}"
                     data-route="{{ route('dashboard.posts.create') }}" data-icon="plus">
                     <i class="bi bi-plus-lg"></i>
                     <span>Post</span>
@@ -47,9 +44,8 @@
             </li>
             <li>
                 <a href="{{route('dashboard.notifications')}}" 
-                    class="nav-link {{ Route::is('dashboard.notifications') ? 'active' : '' }} position-relative" 
-                    data-route="{{ route('dashboard.notifications') }}" data-icon="bell"
-                    onclick="routeTo(event, '{{ route('dashboard.notifications') }}')">
+                    class="nav-link navigation {{ Route::is('dashboard.notifications') ? 'active' : '' }} position-relative" 
+                    data-route="{{ route('dashboard.notifications') }}" data-icon="bell">
                     <i class="{{ Route::is('dashboard.notifications') ? 'bi bi-bell-fill' : 'bi bi-bell' }}"></i>
                     @if ($unreadNotifications > 0)
                         <span class="notif-badge" aria-label="Unread notifications"></span>
@@ -59,9 +55,8 @@
             </li>
             <li>
                 <a href="{{route('dashboard.settings')}}" 
-                    class="nav-link {{ Route::is('dashboard.settings') ? 'active' : '' }}" 
-                    data-route="{{ route('dashboard.settings') }}" data-icon="gear"
-                    onclick="routeTo(event, '{{ route('dashboard.settings') }}')">
+                    class="nav-link navigation {{ Route::is('dashboard.settings') ? 'active' : '' }}" 
+                    data-route="{{ route('dashboard.settings') }}" data-icon="gear">
                     <i class="{{ Route::is('dashboard.settings') ? 'bi bi-gear-fill' : 'bi bi-gear' }}"></i>
                     <span>Settings</span>
                 </a>
@@ -76,7 +71,7 @@
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                <li><a class="dropdown-item" href="{{route('dashboard.profile', auth()->user()) }}" onclick="routeTo(event, '{{ route('dashboard.profile', auth()->user()) }}')">Profile</a></li>
+                <li><a class="dropdown-item navigation" href="{{route('dashboard.profile', auth()->user()) }}" data-route="{{ route('dashboard.profile', auth()->user())}}">Profile</a></li>
                 @auth
                     <li><hr class="dropdown-divider"></li>
                     <li>

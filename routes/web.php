@@ -45,10 +45,10 @@ Route::name('dashboard.')->middleware('auth')->group(function(){
     
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/profile/{user}', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile/{user:username}', [ProfileController::class, 'index'])->name('profile');
 
-    Route::post('/profile/{user}/follow', [ProfileController::class, 'follow'])->name('profile.follow');
-    Route::post('/profile/{user}/unfollow', [ProfileController::class, 'unfollow'])->name('profile.unfollow');
+    Route::post('/profile/{user:username}/follow', [ProfileController::class, 'follow'])->name('profile.follow');
+    Route::post('/profile/{user:username}/unfollow', [ProfileController::class, 'unfollow'])->name('profile.unfollow');
     
     Route::resource('/posts', PostController::class)->except('index');
 
