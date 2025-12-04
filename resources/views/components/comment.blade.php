@@ -43,15 +43,15 @@
                 @if(auth()->user()->isLikedComment($comment))
                     <form action="{{ route('dashboard.comments.unlike', [$post, $comment]) }}" method="post" class="m-0">
                         @csrf
-                        <button type="submit" class="btn-like-toggle"><i class="bi bi-heart-fill text-danger"></i></button>
+                    <button type="submit" class="btn-like-toggle--comment" data-post-id="{{ $post->id }}" data-comment-id="{{ $comment->id }}" aria-pressed="true"><i class="bi bi-heart-fill text-danger"></i></button>
                     </form>
                 @else
                     <form action="{{ route('dashboard.comments.like', [$post, $comment]) }}" method="post" class="m-0">
                         @csrf
-                        <button type="submit" class="btn-like-toggle"><i class="bi bi-heart text-danger"></i></button>
+                        <button type="submit" class="btn-like-toggle--comment" data-post-id="{{ $post->id }}" data-comment-id="{{ $comment->id }}" aria-pressed="false"><i class="bi bi-heart text-danger"></i></button>
                     </form>
                 @endif
-                <span>{{ $comment->likes()->count() }}</span>
+                <span data-comment-id="{{ $comment->id }}">{{ $comment->likes()->count() }}</span>
             </div>
             @if(!$comment->isReply())
                 <div class="reply d-flex column-gap-2 align-items-center">

@@ -121,7 +121,7 @@
     color: #ddd;
 }
 
-.btn-like-toggle, .btn-comment {
+.btn-like-toggle, .btn-like-toggle--comment, .btn-comment {
     border: none;
     background: none;
     padding: 0;

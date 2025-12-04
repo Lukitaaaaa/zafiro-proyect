@@ -47,19 +47,17 @@
                 @if(auth()->user()->isLiked($post))
                     <form action="{{route('dashboard.posts.unlike', $post)}}" method="post" class="m-0" aria-label="Unlike">
                         @csrf
-                        <button type="submit" class="btn-like-toggle" aria-pressed="true"><i class="bi bi-heart-fill text-danger"></i></button>
+                        <button type="submit" class="btn-like-toggle" aria-pressed="true" data-post-id="{{ $post->id }}"><i class="bi bi-heart-fill text-danger"></i></button>
                     </form>
                 @else
                     <form action="{{route('dashboard.posts.like', $post)}}" method="post" class="m-0" aria-label="Like">
                         @csrf
-                        <button type="submit" class="btn-like-toggle" aria-pressed="false" onclick="likePost({{ $post->id }})">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart text-danger" viewBox="0 0 16 16">
-                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                            </svg>
+                        <button type="submit" class="btn-like-toggle" aria-pressed="false" data-post-id="{{ $post->id }}">
+                            <i class="bi bi-heart text-danger"></i>
                         </button>
                     </form>
                 @endif
-                <span>{{$post->likes()->count()}}</span>
+                <span data-post-id="{{ $post->id }}">{{$post->likes()->count()}}</span>
             </div>
             <div class="action-item" aria-label="Comments">
                 <i class="bi bi-chat-fill btn-comment"></i>

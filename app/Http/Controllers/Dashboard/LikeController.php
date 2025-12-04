@@ -19,25 +19,41 @@ class LikeController extends Controller
 
         // event(new PostLiked($liker, $post));
         PostLiked::dispatch($liker, $post);
-        return redirect()->route('dashboard.posts.show', $post->id);
+        return response()->json(
+        [ 
+            'likes_count' => $post->likes()->count(),
+            'estatus' => 'isLiked'
+        ]);
     }
 
     public function unlike(Post $post){
         $liker = auth()->user();
         $liker->likes()->detach($post);
-        return redirect()->route('dashboard.posts.show', $post->id);
+        return response()->json(
+        [ 
+            'likes_count' => $post->likes()->count(),
+            'estatus' => 'isUnliked'
+        ]);
     }
 
     public function likeComment(Post $post, Comment $comment){
         $liker = auth()->user();
         $liker->likesComment()->attach($comment);
-        return redirect()->route('dashboard.posts.show', $post->id);
+        return response()->json(
+        [ 
+            'likes_count' => $comment->likes()->count(),
+            'estatus' => 'isLiked'
+        ]);
     }
 
     public function unlikeComment(Post $post, Comment $comment){
         $liker = auth()->user();
         $liker->likesComment()->detach($comment);
-        return redirect()->route('dashboard.posts.show', $post->id);
+        return response()->json(
+        [ 
+            'likes_count' => $comment->likes()->count(),
+            'estatus' => 'isUnliked'
+        ]);
     }
 
     //TODO: SOLUCIONAR EL PROBLEMA DE ACTUALIZAR EL CONTADOR DE LIKES EN LA POST CARD CUANDO SE HACE UNA ACCION Y SE RETROCEDE A LA PAGINA ANTERIOR

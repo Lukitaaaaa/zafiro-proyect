@@ -9,7 +9,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/post.js',
                 'resources/js/explore.js',
-                'resources/js/profile-edit.js'
+                'resources/js/profile-edit.js',
+                'resources/js/like.js'
             ],
             refresh: true,
         }),
