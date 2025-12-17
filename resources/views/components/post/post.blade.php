@@ -1,4 +1,4 @@
-<div class="post-card position-relative mb-4 p-2">
+<article id="post" class="post-card position-relative mb-4 p-2" data-post-id="{{ $post->id }}">
     <div class="post-meta-top">
         <div class="author-block">
             <img src="{{ $post->user->image }}" alt="Avatar de {{ $post->user->username }}" class="avatar">
@@ -57,12 +57,12 @@
                         </button>
                     </form>
                 @endif
-                <span data-post-id="{{ $post->id }}">{{$post->likes()->count()}}</span>
+                <span id="likesCounter" data-post-id="{{ $post->id }}">{{$post->likes()->count()}}</span>
             </div>
             <div class="action-item" aria-label="Comments">
                 <i class="bi bi-chat-fill btn-comment"></i>
-                <span>{{$post->comments()->count()}}</span>
+                <span id="commentsCounter" data-post-id-comments="{{ $post->id }}">{{$post->comments()->count()}}</span>
             </div>
         </div>
     </div>
-</div>
+</article>

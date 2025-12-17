@@ -10,7 +10,8 @@ export default defineConfig({
                 'resources/js/post.js',
                 'resources/js/explore.js',
                 'resources/js/profile-edit.js',
-                'resources/js/like.js'
+                'resources/js/like.js',
+                'resources/js/add-comment.js',
             ],
             refresh: true,
         }),

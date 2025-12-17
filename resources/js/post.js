@@ -1,88 +1,45 @@
+let postViewListenersAdded = false;
+
 function initPostView() {
-    // Verificar que estamos en la vista del post
     console.log('Initializing post view scripts');
-    const commentForm = document.querySelector('form[action*="comments"]');
-    if (!commentForm) {
-        console.log('Not on post view, skipping initialization');
-        return;
+
+    console.log('listeners added: ',postViewListenersAdded);
+    // Solo agregar listeners del formulario principal UNA VEZ
+    if (!postViewListenersAdded) {
+        
+        // DELEGACIÓN: Escuchar clicks en document para elementos dinámicos
+        document.addEventListener('click', function(e) {
+
+            // TOGGLE FORMULARIO DE RESPUESTA
+            // const replyBtn = e.target.closest('.reply');
+            // if (replyBtn) {
+            //     e.preventDefault();
+            //     const commentId = replyBtn.getAttribute('data-comment-id');
+            //     // Buscar el formulario dentro del mismo contenedor del comentario
+            //     const commentContainer = replyBtn.closest('article') || replyBtn.closest('.comment-item');
+            //     const form = commentContainer ? commentContainer.querySelector('.form') : document.querySelector(`.form[data-comment-id="${commentId}"]`);
+            //     if (form) {
+            //         form.classList.toggle('d-none');
+            //     }
+            //     return;
+            // }
+
+            // MOSTRAR/OCULTAR RESPUESTAS
+            // const showRepliesBtn = e.target.closest('.show-replies');
+            // if (showRepliesBtn) {
+            //     const commentId = showRepliesBtn.getAttribute('data-comment-id');
+            //     const repliesList = document.querySelector(`.replies[data-comment-id="${commentId}"]`);
+            //     if (repliesList) {
+            //         repliesList.classList.toggle('d-none');
+            //         const spans = showRepliesBtn.querySelectorAll('span');
+            //         spans.forEach(span => span.classList.toggle('d-none'));
+            //     }
+            //     return;
+            // }
+        });
+
+        postViewListenersAdded = true;
     }
-
-    // HABILITAR EL BOTON DE RESPONDER CUANDO SE ESCRIBE EN EL INPUT
-    const button = document.getElementById('add-comment-btn');
-    const input = document.getElementById('content');
-
-    if (button && input) {
-        button.disabled = input.value.trim() === '';
-
-        input.addEventListener('input', () => {
-            button.disabled = input.value.trim() === '';
-        });
-
-        commentForm.addEventListener('submit', function () {
-            button.disabled = true;
-            const buttonText = document.getElementById('button-text');
-            const spinner = document.getElementById('spinner');
-            if (buttonText) buttonText.classList.add('d-none');
-            if (spinner) spinner.classList.remove('d-none');
-        });
-    }
-
-    // MOSTRAR Y OCULTAR EL FORMULARIO DE RESPUESTA
-    const toggleForm = document.querySelectorAll('.reply');
-    const formReply = document.querySelectorAll('.form');
-
-    toggleForm.forEach((reply, index) => { 
-        reply.addEventListener('click', function() {
-            if (formReply[index]) {
-                formReply[index].classList.toggle('d-none');
-            }
-        });
-    });
-
-    // HABILITAR LOS BOTONES DE RESPONDER CUANDO SE ESCRIBE EN EL INPUT CORRESPONDIENTE
-    const addReplyBtn = document.querySelectorAll('#add-reply-btn');
-    const inputReply = document.querySelectorAll('#content-reply');
-    
-    addReplyBtn.forEach((btn, index) => {
-        if (inputReply[index]) {
-            btn.disabled = inputReply[index].value.trim() === '';
-        }
-    });
-
-    inputReply.forEach((input, index) => {
-        input.addEventListener('input', () => {
-            if (addReplyBtn[index]) {
-                addReplyBtn[index].disabled = input.value.trim() === '';
-            }
-        });
-    });
-
-    formReply.forEach((form, index) => {
-        form.addEventListener('submit', function () {
-            if (addReplyBtn[index]) {
-                addReplyBtn[index].disabled = true;
-                const buttonText = form.querySelector('#button-text');
-                const spinner = form.querySelector('#spinner');
-                if (buttonText) buttonText.classList.add('d-none');
-                if (spinner) spinner.classList.remove('d-none');
-            }
-        });
-    });
-
-    // MOSTRAR Y OCULTAR LAS RESPUESTAS
-    const showReplies = document.querySelectorAll('.show-replies');
-    
-    showReplies.forEach(show => {
-        show.addEventListener('click', function() {
-            const commentId = show.getAttribute('data-comment-id');
-            const repliesList = document.querySelector(`.replies[data-comment-id="${commentId}"]`);
-            if (repliesList) {
-                repliesList.classList.toggle('d-none');
-                const spans = show.querySelectorAll('span');
-                spans.forEach(span => span.classList.toggle('d-none'));
-            }
-        });
-    });
 }
 
 // Inicializar en carga inicial

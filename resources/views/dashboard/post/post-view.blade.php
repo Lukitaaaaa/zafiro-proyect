@@ -13,13 +13,14 @@
             <h3 class="mb-0">Post</h3>
         </header>
         <x-post.post :post="$post" :clickable="false"/>
+    @if(!$editing)    
         <section class="comments-wrapper" aria-label="Comments section">
             {{-- input-add-comment --}}
-            <form action="{{route('dashboard.comments.store', $post->id)}}" method="POST" class="comment-input-row m-0" aria-label="Agregar comentario">
+            <form id="commentForm" class="comment-input-row m-0" aria-label="Agregar comentario">
                 @csrf
                 <img src="{{ auth()->user()->image }}" alt="Tu avatar" class="avatar-small">
-                <input type="text" name="content" id="content" class="form-control w-100 rounded-pill" placeholder="Write a comment..." aria-label="Comment content">
-                <button id="add-comment-btn" class="publish-btn">
+                <input type="text" name="content" id="content" class="form-control w-100 rounded-pill" placeholder="Write a comment..." aria-label="Comment content" required>
+                <button type="submit" id="addCommentBtn" data-post-id="{{ $post->id }}" class="publish-btn">
                     <span id="button-text">Publish</span>
                     <span id="spinner" class="spinner-border text-primary spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                 </button>
@@ -29,14 +30,17 @@
                 @forelse($post->comments as $comment) 
                     <x-comment :comment="$comment" :post="$post" />
                 @empty
-                    <div class="text-center py-3">
+                    <div id="noCommentsMessage" class="{{ $post->comments->count() > 0 ? 'd-none' : '' }} text-center py-3">
                         <span class="text-muted">No comments yet. Be the first to comment!</span>
                     </div>
                 @endforelse
             </div>
         </section>
     </section>
-    <x-suggested-users :users="$users"/>
-</main>
 
+    <x-suggested-users :users="$users"/>
+    @else
+    </section>
+    @endif
+</main>
 @endsection

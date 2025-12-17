@@ -1,5 +1,5 @@
-<article class="d-flex " style="padding: 0">
-    <div class="me-3">
+<article class="d-flex comment" data-comment-id="{{ $comment->id }}" data-parent-id="{{ $comment->parent_id ?? '' }}" role="article" aria-label="Comment by {{ $comment->user->username }}">
+    <div class="me-3 pb-2">
         <img 
             src="{{ $comment->user->image }}" 
             alt="{{ $comment->user->name }}"
@@ -7,6 +7,8 @@
             height="32" 
             class="object-fit-cover rounded-circle"
         >
+
+        <div class="line mx-auto {{ $comment->replies->count() > 0 && !$comment->isReply() ? '' : 'd-none' }}"></div>
     </div>
     <div class="d-grid w-100"> 
         <header class="d-flex justify-content-between align-items-center" style="height: 32px;">
@@ -22,10 +24,10 @@
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         @if(auth()->user()->id === $comment->user_id || auth()->user()->id === $post->user_id)
                             <li>
-                                <form action="{{route('dashboard.comments.destroy', $comment)}}" method="post" class="m-0">
+                                <form id="deleteForm{{ $comment->id }}" class="m-0">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="dropdown-item text-danger">Remove</button>
+                                    {{-- @method('DELETE') --}}
+                                    <button type="submit" class="dropdown-item text-danger btn-delete-comment" data-comment-id="{{ $comment->id }}">Remove</button>
                                 </form>
                             </li>
                         @endif
@@ -54,14 +56,14 @@
                 <span data-comment-id="{{ $comment->id }}">{{ $comment->likes()->count() }}</span>
             </div>
             @if(!$comment->isReply())
-                <div class="reply d-flex column-gap-2 align-items-center">
+                <button type="button" class="reply d-flex column-gap-2 align-items-center" data-comment-id="{{ $comment->id }}">
                     <i class="bi bi-chat-fill"></i>
                     <span>Reply</span>
-                </div>
+                </button>
             @endif
         </div>
         @if(!$comment->isReply())
-            <form action="{{ route('dashboard.comments.reply', $comment)}}" method="POST" class="form d-none d-flex align-items-center justify-content-between m-0" style="padding: 1rem 0px;" >
+            <form class="form d-none d-flex align-items-center justify-content-between m-0" style="padding: 1rem 0px;" data-comment-id="{{ $comment->id }}" aria-label="Reply form">
                 @csrf
                 <div class="me-3">
                     <img 
@@ -73,27 +75,26 @@
                     >
                 </div>
                 <input type="text" name="content" id="content-reply" class="form-control w-100 rounded-pill" placeholder="Write a reply...">
-                <button id="add-reply-btn" class="publish-btn ms-3 rounded-pill">
+                <button type="submit" id="add-reply-btn" class="publish-btn ms-3 rounded-pill" data-comment-id="{{ $comment->id }}">
                     <span id="button-text">Publish</span>
                     <span id="spinner" class="spinner-border text-primary spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                 </button>
             </form>
-            {{-- replies --}}
-            @if($comment->replies->count() > 0)
-                <button type="button" class="show-replies publish-btn py-1" data-comment-id="{{ $comment->id }}" style="width: 130px; text-align: left; display:block">
-                    <span class="text-muted d-none">Hide replies</span>
-                    <span class="text-muted" >{{ 'View replies (' . $comment->replies->count() .')' }}</span>
-                </button>
-            @endif
             
-            <ol class="replies d-none position-relative border-start border-4" data-comment-id="{{ $comment->id }}" style="list-style: none; margin:10px 0 0 10px; padding-left: 15px;">
-                @forelse($comment->replies as $reply)
-                    <li>
-                        <x-comment :comment="$reply" :post="$post" />
-                    </li>
-                @empty
-                @endforelse
-            </ol>
+            <button type="button" class="show-replies publish-btn py-1 {{ $comment->replies->count() > 0 ? '' : 'd-none' }}" data-comment-id="{{ $comment->id }}" aria-expanded="false">
+                <span class="text-muted d-none">Hide replies</span>
+                <span class="text-muted" > View replies (<span id="repliesCounter">{{  $comment->replies->count() }}</span>)</span>
+            </button>
+            
+            
+            {{-- replies --}}
+            <div class="replies d-none position-relative" data-comment-id="{{ $comment->id }}">       
+                @foreach($comment->replies as $reply)
+                    
+                    <x-comment :comment="$reply" :post="$post" />
+                     
+                @endforeach
+            </div>
         @endif
     </div>
 </article>
