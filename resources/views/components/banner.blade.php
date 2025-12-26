@@ -4,7 +4,7 @@
     'image' => '',
     'unreadNotifications' => 0,
 ])
-<div class="banner position-sticky top-0 right-0 h-100" role="navigation" aria-label="Primary sidebar">
+<div class="banner position-sticky top-0 right-0 h-100" role="navigation" aria-label="Primary sidebar" x-data>
     <div class="banner-panel p-3">
         <a href="/" class="mb-3 text-center text-white text-decoration-none brand">Zafiro</a>
         <ul class="nav-primary mb-auto" role="list">
@@ -35,14 +35,6 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('dashboard.posts.create')}}" 
-                    class="nav-link navigation {{ Route::is('dashboard.posts.create') ? 'active' : '' }}"
-                    data-route="{{ route('dashboard.posts.create') }}" data-icon="plus">
-                    <i class="bi bi-plus-lg"></i>
-                    <span>Post</span>
-                </a>
-            </li>
-            <li>
                 <a href="{{route('dashboard.notifications')}}" 
                     class="nav-link navigation {{ Route::is('dashboard.notifications') ? 'active' : '' }} position-relative" 
                     data-route="{{ route('dashboard.notifications') }}" data-icon="bell">
@@ -60,6 +52,15 @@
                     <i class="{{ Route::is('dashboard.settings') ? 'bi bi-gear-fill' : 'bi bi-gear' }}"></i>
                     <span>Settings</span>
                 </a>
+            </li>
+            <li>
+                <button 
+                    @click="$dispatch('open-create-post-modal')"
+                    class="nav-link bg-primary {{ Route::is('dashboard.posts.create') ? 'active' : '' }}"
+                    style="background: none; border: none; width: 100%; text-align: left;">
+                    <i class="bi bi-plus-lg"></i>
+                    <span>Post</span>
+                </button>
             </li>
         </ul>
         <div class="dropdown user-block">

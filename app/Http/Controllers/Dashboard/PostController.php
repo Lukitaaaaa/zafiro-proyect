@@ -25,7 +25,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('dashboard.post.create-post');
+        // RUTA PROVISORIA
+        return redirect()->route('dashboard.profile', auth()->user());
+        
+        
+        // return view('dashboard.post.create-post');
         
     }
 

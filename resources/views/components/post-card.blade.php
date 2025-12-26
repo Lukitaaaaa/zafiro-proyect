@@ -19,11 +19,6 @@
                 <p class="m-0">{{$post->comments_count}}</p>
             </div>
         </div>
-        
-        {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="bi bi-eye"></i>
-        </button> --}}
     </div>
     <a class="w-100 h-100 position-absolute" href="{{route('dashboard.posts.show', $post)}}"></a>
 </div>
-{{-- <x-post.post-modal :description="$post->description" :image="$post->image" :created="$post->created_at"/> --}}

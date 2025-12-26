@@ -5,6 +5,16 @@
 @import './views/profile-edit.css';
 @import './views/post-view.css';
 
+:root {
+        --surface-primary: #111;
+        --surface-secondary: #181818;
+        --surface-elevated: #202020;
+        --border-color: #2a2a2a;
+        --radius-lg: 1.25rem;
+        --radius-md: .75rem;
+        --transition-fast: .18s ease;
+    }
+
 .hover-secondary:hover {
     background-color: var(--bs-secondary); /* Usa la variable de Bootstrap para el color secundario */
     color: white; /* Cambia el texto a blanco para mejor contraste */
@@ -167,3 +177,23 @@
     outline: 0;
     width: 50%;
 }
+
+/* MODALS*/
+
+.modal-show {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+}
+
+.upload-area { 
+    /* width:400px;  */
+    height:400px; 
+    text-align: center;
+    background:var(--surface-secondary); 
+    border:1px dashed var(--border-color); 
+    border-radius:var(--radius-md); 
+    transition:var(--transition-fast);
+    margin-bottom: 1rem;
+}
+
+.upload-area:hover { border-color:#3a3a3a; }
