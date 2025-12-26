@@ -42,5 +42,6 @@
     @else
     </section>
     @endif
+    @livewire('edit-post-modal', ['post' => $post])
 </main>
 @endsection

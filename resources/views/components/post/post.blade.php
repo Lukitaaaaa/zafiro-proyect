@@ -1,4 +1,14 @@
-<article id="post" class="post-card position-relative mb-4 p-2" data-post-id="{{ $post->id }}">
+<article 
+    id="post" 
+    class="post-card position-relative mb-4 p-2" 
+    data-post-id="{{ $post->id }}" 
+    x-data="{ description: '{{ addslashes($post->description) }}' }"
+    @post-updated.window="
+        if ($event.detail[0].postId === {{ $post->id }}) {
+            description = $event.detail[0].description;
+        }
+    "
+    >
     <div class="post-meta-top">
         <div class="author-block">
             <img src="{{ $post->user->image }}" alt="Avatar de {{ $post->user->username }}" class="avatar">
@@ -11,9 +21,16 @@
             <a href="#" class="menu-comments" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Post options">
                 <i class="bi bi-three-dots"></i>
             </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" x-data>
                 @if(auth()->user()->id === $post->user->id)
-                    <a href="{{route('dashboard.posts.edit', $post)}}" class="dropdown-item">Edit</a>
+                    {{-- <a href="{{route('dashboard.posts.edit', $post)}}" class="dropdown-item">Edit</a> --}}
+                    <li>
+                        <button 
+                            @click="$dispatch('open-edit-post-modal', { post: {{ $post }} })"
+                            class="dropdown-item">
+                            Edit
+                        </button>
+                    </li>
                     <li>
                         <form action="{{route('dashboard.posts.destroy', $post)}}" method="post" class="m-0">
                             @csrf
@@ -36,7 +53,7 @@
                 <img src="/storage/{{$post->image}}" alt="Imagen del post de {{ $post->user->username }}" class="post-image w-100">
             @endif
         </figure>
-        <div class="post-description fw-normal text-break">{{$post->description}}</div>
+        <div id="postDescription{{ $post->id }}" class="post-description fw-normal text-break" x-text="description"></div>
         @if($clickable)
             <a href="{{ route('dashboard.posts.show', $post) }}" class="position-absolute top-0 w-100 h-100"></a>
         @endif
