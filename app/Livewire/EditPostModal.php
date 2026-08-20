@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class EditPostModal extends Component
@@ -56,6 +57,8 @@ class EditPostModal extends Component
 
     public function updatePost()
     {
+        Gate::authorize('update', $this->post);
+
         $this->validate();
 
         $this->post->description = $this->content;

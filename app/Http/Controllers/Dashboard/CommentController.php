@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -27,6 +28,8 @@ class CommentController extends Controller
     }
 
     public function destroy(Comment $comment){
+        Gate::authorize('delete', $comment);
+
         if($comment->isReply()){
             $id = $comment->commentParent->post_id;
         }

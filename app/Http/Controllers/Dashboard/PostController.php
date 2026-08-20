@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -88,6 +89,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        Gate::authorize('update', $post);
+
         $editing = true;
         return view('dashboard.post.post-view', compact('post', 'editing'));
     }
@@ -97,6 +100,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        Gate::authorize('update', $post);
+
         $request->validate([
             'description'=>'string|max:255|nullable'
         ]);
@@ -112,6 +117,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        Gate::authorize('delete', $post);
+
         Storage::disk('public')->delete($post->image);
 
         $post->delete();

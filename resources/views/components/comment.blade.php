@@ -22,7 +22,7 @@
                         <i class="bi bi-three-dots"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        @if(auth()->user()->id === $comment->user_id || auth()->user()->id === $post->user_id)
+                        @can('delete', $comment)
                             <li>
                                 <form id="deleteForm{{ $comment->id }}" class="m-0">
                                     @csrf
@@ -30,7 +30,7 @@
                                     <button type="submit" class="dropdown-item text-danger btn-delete-comment" data-comment-id="{{ $comment->id }}">Remove</button>
                                 </form>
                             </li>
-                        @endif
+                        @endcan
                         @if(auth()->user()->id !== $comment->user_id)
                             <li><a class="dropdown-item" href="#">Report</a></li>
                         @endif
