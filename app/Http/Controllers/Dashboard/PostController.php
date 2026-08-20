@@ -56,7 +56,9 @@ class PostController extends Controller
             $post->save();
         }
         
-        //dd($request->all());
+        // Sync hashtags from description
+        $post->syncTagsFromDescription();
+
         return redirect()->route('dashboard.profile', auth()->user());
     }
 
@@ -100,6 +102,7 @@ class PostController extends Controller
         ]);
 
         $post->update($request->all());
+        $post->syncTagsFromDescription();
         $editing = false;
         return view('dashboard.post.post-view', compact('post', 'editing'));
     }

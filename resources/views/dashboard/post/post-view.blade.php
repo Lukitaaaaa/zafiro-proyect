@@ -18,8 +18,10 @@
             {{-- input-add-comment --}}
             <form id="commentForm" class="comment-input-row m-0" aria-label="Agregar comentario">
                 @csrf
-                <img src="{{ auth()->user()->image }}" alt="Tu avatar" class="avatar-small">
-                <input type="text" name="content" id="content" class="form-control w-100 rounded-pill" placeholder="Write a comment..." aria-label="Comment content" required>
+                <img src="{{ auth()->user()->image }}" alt="Tu avatar" class="avatar" width="32" height="32">
+                <div class="flex-grow-1">
+                    <input type="text" name="content" id="content" class="form-control rounded-pill" placeholder="Write a comment..." aria-label="Comment content" required>
+                </div>
                 <button type="submit" id="addCommentBtn" data-post-id="{{ $post->id }}" class="publish-btn">
                     <span id="button-text">Publish</span>
                     <span id="spinner" class="spinner-border text-primary spinner-border-sm d-none" role="status" aria-hidden="true"></span>

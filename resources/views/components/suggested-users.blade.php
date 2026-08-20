@@ -2,12 +2,12 @@
 
 <div class="how-to-follow-container">
     <div class="follow-shell position-sticky me-3" aria-label="Suggestions to follow" style="top: 1rem;">
-        <h5>Who to follow</h5>
+        <h5 class="mb-2 fw-semibold">Who to follow</h5>
         <div class="follow-list">
             @foreach ($users as $user)
                 <div class="follow-item">
-                    <div class="avatar">
-                        <img src="{{ $user->image }}" alt="{{ $user->name }} avatar">
+                    <div class="">
+                        <img src="{{ $user->image }}" alt="{{ $user->name }} avatar" class="avatar" width="32" height="32">
                     </div>
                     <div class="overflow-hidden" style="min-width:0;">
                         <a class="mb-0 small text-truncate d-block" href="{{route('dashboard.profile', $user)}}">{{ $user->name }}</a>

@@ -16,7 +16,7 @@
         @foreach ($users as $user)
         <article class="d-flex py-2">
             <figure class="m-0 me-3">
-                <img class="avatar-img rounded-circle object-fit-cover"
+                <img class="rounded-circle object-fit-cover"
                     src="{{ $user->image }}" 
                     alt="{{ $user->name }}"
                     width="40"
@@ -30,7 +30,7 @@
                         <a class="h6 mb-0" href="{{route('dashboard.profile', $user)}}">{{ $user->name }}</a>
                         <p class="mb-0 small text-truncate">{{ '@' . $user->username }}</p>
                     </div>
-                    <form action="{{ route( 'dashboard.profile.follow', $user)}}" method="post" class=" ms-auto">
+                    <form action="{{ route( 'dashboard.profile.follow', $user)}}" method="post" class="ms-auto">
                         @csrf
                         <button type="submit" class="btn btn-primary w-100">Follow</button>
                     </form>

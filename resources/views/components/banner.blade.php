@@ -65,7 +65,7 @@
         </ul>
         <div class="dropdown user-block">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle user-trigger" data-bs-toggle="dropdown" aria-expanded="false" aria-label="User menu">
-                <img src="{{$image}}" alt="Avatar de {{$username}}" class="avatar-s me-2">
+                <img src="{{$image}}" alt="Avatar de {{$username}}" class="avatar me-2" width="32" height="32">
                 <div class="d-flex flex-column">
                     <strong class="name" style="font-size: .7rem;">{{$name}}</strong>
                     <strong class="username" style="font-size: .75rem;">{{'@' . $username}}</strong>

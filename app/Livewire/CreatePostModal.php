@@ -79,6 +79,9 @@ class CreatePostModal extends Component
 
         $post->save();
 
+        // Sync hashtags from description
+        $post->syncTagsFromDescription();
+
         // Cargar conteos
         $post->loadCount(['likes', 'comments']);
 

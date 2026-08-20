@@ -22,7 +22,7 @@
                     >
                     <span class="fs-5">@user</span>
                 </div>
-                <span class="fs-5 text-break">{{$description}}</span>
+                <span class="fs-5 text-break">{!! hashtagsToLinks($description) !!}</span>
                 <div class="mt-auto d-flex justify-content-between">
                     <div class="d-flex column-gap-4">
                         <div class="likes d-flex  column-gap-2 align-items-center">

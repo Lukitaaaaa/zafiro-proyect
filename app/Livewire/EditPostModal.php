@@ -62,10 +62,13 @@ class EditPostModal extends Component
 
         $this->post->save();
 
+        // Sync hashtags from description
+        $this->post->syncTagsFromDescription();
+
         // Emitir evento para actualizar el post en la interfaz
         $this->dispatch('post-updated', [
             'postId' => $this->post->id,
-            'description' => $this->post->description,
+            'description' => hashtagsToLinks($this->post->description),
         ]);
 
         // Cerrar modal y resetear

@@ -3,9 +3,10 @@
 
 function setupUserSearch() {
     const searchInput = document.getElementById('search');
-    if (!searchInput) return;
+    const clearSearch = document.getElementById('clearSearch');
 
     searchInput.addEventListener('input', function () {
+        clearSearch.className = this.value ? 'btn d-block' : 'd-none';
         consultaAjax(searchInput.value);
     });
 
@@ -15,6 +16,12 @@ function setupUserSearch() {
         setTimeout(() => {
             resultsContainer.style.display = 'none';
         }, 200); // Delay to allow click on result
+    });
+
+    clearSearch.addEventListener('click', function () {
+        searchInput.value = '';
+        clearResults();
+        clearSearch.style.display = 'none';
     });
 }
 
@@ -80,14 +87,10 @@ function consultaAjax(query) {
 }
 
 function searchUsers() {
-    const usersResults = document.getElementById('btnSearch');
-    if (!usersResults) return;
-    console.log('Search button found, binding event listener');
-    usersResults.addEventListener('click', function (e) {
+    const formSearch = document.getElementById('formSearch');
+    formSearch.addEventListener('submit', function (e) {
         e.preventDefault();
-        console.log('Search button clicked');
         const query = document.getElementById('search').value;
-        console.log('Searching for:', query);
         showUsersResults(query);
     });
 }
@@ -108,10 +111,10 @@ function showUsersResults(query) {
                 console.log('No users found');
                 usersResultsContainer.style.display = 'none';
             } else {
-                usersResultsContainer.style.display = 'block';
                 data.forEach(user => {
                     console.log('Rendering user:', user);
                     const userElement = document.createElement('div');
+                    const colElement = document.createElement('div');
                     const image = document.createElement('img');
                     image.src = user.image;
                     image.alt = user.username;
@@ -121,22 +124,33 @@ function showUsersResults(query) {
 
                     const nameElement = document.createElement('span');
                     nameElement.textContent = user.name;
+                    nameElement.className = 'd-block text-center text-truncate fw-bold';
+
+                    const usernameElement = document.createElement('span');
+                    usernameElement.textContent = `@${user.username}`;
+                    usernameElement.className = 'd-block text-center text-truncate text-muted';
 
                     const linkElement = document.createElement('a');
                     linkElement.href = `/profile/${user.username}`;
-                    linkElement.className = 'position-absolute w-100 h-100';
+                    linkElement.className = 'position-absolute w-100 h-100 top-0 start-0';
 
-                    userElement.className = 'user-result p-2 d-flex flex-column align-items-center position-relative';
+                    colElement.className = 'col';
+                    colElement.appendChild(userElement);
+                    userElement.className = 'user-card px-2 py-3 d-flex flex-column align-items-center position-relative';
                     userElement.appendChild(image);
+                    userElement.appendChild(usernameElement);
                     userElement.appendChild(nameElement);
                     userElement.appendChild(linkElement);
 
-                    usersResultsContainer.appendChild(userElement);
+                    usersResultsContainer.appendChild(colElement);
                 });
             }
         })
         .catch(error => {
             console.error('Error fetching users:', error);
+        })
+        .finally(() => {
+            clearResults();
         });
 
 }
@@ -148,20 +162,6 @@ function clearResults() {
         resultsContainer.style.display = 'none';
     }
 }
-// function searchUsers(query) {
-//     return fetch(`/search-users?q=${encodeURIComponent(query)}`)
-//         .then(response => {
-//             console.log('Fetch response:', response);
-//             if (!response.ok) {
-//                 throw new Error('Network response was not ok');
-//             }
-//             return response.json();
-//         })
-//         .catch(error => {
-//             console.error('Error fetching users:', error);
-//             return [];
-//         });
-// }
 
 function initExploreScripts() {
     setupUserSearch();

@@ -1,19 +1,51 @@
-@import './theme.css';
 @import './components/follow.css';
 @import './components/banner.css';
-@import './components/nav-progress.css';
 @import './views/profile-edit.css';
 @import './views/post-view.css';
 
 :root {
-        --surface-primary: #111;
-        --surface-secondary: #181818;
-        --surface-elevated: #202020;
-        --border-color: #2a2a2a;
-        --radius-lg: 1.25rem;
-        --radius-md: .75rem;
-        --transition-fast: .18s ease;
-    }
+    --surface-primary: #111;
+    --surface-secondary: #181818;
+    --surface-elevated: #202020;
+    --border-color: #2a2a2a;
+    --radius-lg: 1.25rem;
+    --radius-md: .75rem;
+    --transition-fast: .18s ease;
+}
+
+body {
+    background: var(--surface-primary);
+    color: #e5e5e5;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+input:focus{
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+button:active{
+    border: none !important;
+}
+
+.nav-progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg,#4da3ff,#9d6dff);
+    z-index: 9999;
+    transition: width .25s ease, opacity .4s ease;
+    opacity: 0;
+}
+.nav-progress-bar.active { opacity: 1; }
+
+.avatar{
+    border-radius: 50%;
+    object-fit: cover;
+    border:1px solid var(--border-color);
+}
 
 .hover-secondary:hover {
     background-color: var(--bs-secondary); /* Usa la variable de Bootstrap para el color secundario */
@@ -21,9 +53,25 @@
     cursor: pointer; /* Cambia el cursor a pointer para indicar que es interactivo */
 }
 
-/* HOME */
+.post-view, .feed {
+    max-width: 500px;
+    margin: 0 auto;
+}
 
-/* Empty feed state */
+.follow-shell, .trend, .post-card, .user-card, .form-search { 
+    background:linear-gradient(145deg,var(--surface-primary),var(--surface-secondary)); 
+    border:1px solid var(--border-color); 
+    border-radius:var(--radius-lg); 
+    padding:.9rem .9rem .75rem; 
+    box-shadow:0 4px 14px -4px rgba(0,0,0,.35); 
+}
+
+.columna{
+    padding: 0 !important;
+    width: 285px !important;
+}
+
+/* EMPTY FEED */
 .empty-feed-state {
     max-width: 500px;
     margin: 0 auto;
@@ -50,10 +98,7 @@
     line-height: 1.6;
 }
 
-.columna{
-    padding: 0 !important;
-    width: 285px !important;
-}
+/* POST */
 
 .post-container{
     width: 285px;
@@ -95,13 +140,6 @@
     display: flex;
     gap: .85rem;
     align-items: center;
-}
-.author-block .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--surface-elevated);
 }
 
 .post-description {
@@ -146,7 +184,7 @@
 }
 .btn-like-toggle:hover { background: rgba(220,20,60,.12); }
 
-.menu-comments {
+.menu {
     border: none;
     background: none;
     display: flex;
@@ -160,10 +198,10 @@
     color: #fff;
     transition: var(--transition-fast);
 }
-.menu-comments:hover { background: rgba(255,255,255,.06); }
+.menu:hover { background: rgba(255,255,255,.06); }
 
 
-/* SUGGEST USERS */
+/* SUGGEST USERS VIEW */
 
 .users-list {
     max-width: 560px;
