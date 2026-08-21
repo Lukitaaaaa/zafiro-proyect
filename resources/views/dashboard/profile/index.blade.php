@@ -15,7 +15,7 @@
         @include('layout.header-profile')
         <hr>
         <div class="mt-3 mx-auto container" style="width: 895px;">
-            <div class="profile-posts row row-cols-2 row-cols-md-3 gap-2 mx-auto">
+            <div class="profile-posts row row-cols-2 row-cols-md-3 gap-2 mx-auto" data-infinite-scroll-container data-has-more="{{ $posts->hasMorePages() ? 'true' : 'false' }}">
                 @foreach ($posts as $post)
                     <div class="columna col">
                         @include('components.post-card')    

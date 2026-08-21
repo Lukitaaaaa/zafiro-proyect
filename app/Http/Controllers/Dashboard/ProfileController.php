@@ -17,7 +17,15 @@ class ProfileController extends Controller
 {
     public function index(User $user){
         
-        $posts = Post::withCount(['likes', 'comments'])->where('user_id', $user->id)->orderBy('created_at','DESC')->get();
+        $posts = Post::withCount(['likes', 'comments'])->where('user_id', $user->id)->orderBy('created_at','DESC')->simplePaginate(12);
+
+        if (request()->hasHeader('X-Infinite-Scroll')) {
+            return response()->json([
+                'html' => view('dashboard.partials.grid-posts', compact('posts'))->render(),
+                'hasMore' => $posts->hasMorePages()
+            ]);
+        }
+
         return view('dashboard.profile.index', compact('posts', 'user'));
 
     }

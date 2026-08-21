@@ -3,7 +3,7 @@
 @section('content')
 {{-- Styles extracted to resources/css/components/follow.css via Vite --}}
 <main class="d-flex py-3 w-100">
-    <section class="feed">
+    <section class="feed" data-infinite-scroll-container data-has-more="{{ $posts->hasMorePages() ? 'true' : 'false' }}">
         @forelse ($posts as $post)
             <x-post.post :post="$post" :clickable="true"/>
         @empty

@@ -5,7 +5,7 @@
     <div class="mx-auto">
         <h2 class="my-3">Liked posts</h2>
         <div class="container py-3" style="width: 895px;">
-            <div class="row row-cols-2 row-cols-md-3 gap-2 mx-auto">
+            <div class="row row-cols-2 row-cols-md-3 gap-2 mx-auto" data-infinite-scroll-container data-has-more="{{ $posts->hasMorePages() ? 'true' : 'false' }}">
                 @forelse ($posts as $post)
                     <div class="columna col">
                         @include('components.post-card')    

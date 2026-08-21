@@ -18,7 +18,14 @@ class HomeController extends Controller
             ->withCount(['likes', 'comments'])
             ->whereIn('user_id', $userAuth->followings()->pluck('users.id'))
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->simplePaginate(12);
+
+        if (request()->hasHeader('X-Infinite-Scroll')) {
+            return response()->json([
+                'html' => view('dashboard.partials.feed-posts', compact('posts'))->render(),
+                'hasMore' => $posts->hasMorePages()
+            ]);
+        }
 
         $users = User::where('id', '!=', $userAuth->id)
             ->whereNotIn('id', $userAuth->followings()->pluck('users.id'))
@@ -36,7 +43,15 @@ class HomeController extends Controller
 
         $posts = Post::with(['user'])
             ->withCount(['likes', 'comments'])
-            ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')
+            ->simplePaginate(12);
+
+        if (request()->hasHeader('X-Infinite-Scroll')) {
+            return response()->json([
+                'html' => view('dashboard.partials.grid-posts', compact('posts'))->render(),
+                'hasMore' => $posts->hasMorePages()
+            ]);
+        }
 
         $users = User::where('id', '!=', $userAuth->id)
             ->whereNotIn('id', $userAuth->followings()->pluck('users.id'))
@@ -71,7 +86,14 @@ class HomeController extends Controller
         $user = auth()->user();
 
         // Obtener los posts que el usuario ha "likeado"
-        $posts = $user->likes()->with('user')->withCount(['likes', 'comments'])->get();
+        $posts = $user->likes()->with('user')->withCount(['likes', 'comments'])->simplePaginate(12);
+
+        if (request()->hasHeader('X-Infinite-Scroll')) {
+            return response()->json([
+                'html' => view('dashboard.partials.grid-posts', compact('posts'))->render(),
+                'hasMore' => $posts->hasMorePages()
+            ]);
+        }
 
         return view('dashboard.liked-posts', compact('posts'));
     }
@@ -99,7 +121,14 @@ class HomeController extends Controller
             ->with('user')
             ->withCount(['likes', 'comments'])
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->simplePaginate(12);
+
+        if (request()->hasHeader('X-Infinite-Scroll')) {
+            return response()->json([
+                'html' => view('dashboard.partials.grid-posts', compact('posts'))->render(),
+                'hasMore' => $posts->hasMorePages()
+            ]);
+        }
 
         $users = User::where('id', '!=', $userAuth->id)
             ->whereNotIn('id', $userAuth->followings()->pluck('users.id'))

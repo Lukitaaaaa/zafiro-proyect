@@ -41,3 +41,4 @@ function initProfileEdit() {
 }
 
 document.addEventListener('DOMContentLoaded', initProfileEdit);
+document.addEventListener('content-loaded', initProfileEdit);
