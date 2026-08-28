@@ -19,7 +19,13 @@ class LoginController extends Controller implements HasMiddleware
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->validated();
+        $login = $request->input('login');
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $credentials = [
+            $fieldType => $login,
+            'password' => $request->input('password'),
+        ];
  
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -28,9 +34,9 @@ class LoginController extends Controller implements HasMiddleware
         }
  
         return back()->withErrors([
-            'email' => 'Este usuario no se encuentra registrado.',
+            'login' => 'Las credenciales ingresadas no son correctas.',
             'password' => 'Contraseña incorrecta.'
-        ])->onlyInput('email', 'password');
+        ])->onlyInput('login');
     }
 
     public function logout(Request $request){

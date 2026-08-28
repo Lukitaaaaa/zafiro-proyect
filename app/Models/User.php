@@ -91,10 +91,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function sendPasswordResetNotification($token)
-    {
-        $url = route('auth.password.reset', ['token' => $token]);
-    }
+    // public function sendPasswordResetNotification($token)
+    // {
+    //     $url = route('auth.password.reset', ['token' => $token]);
+    //     return $url;
+    // }
 
     /**
      * Get the attributes that should be cast.

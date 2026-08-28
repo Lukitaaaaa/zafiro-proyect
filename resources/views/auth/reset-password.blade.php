@@ -1,19 +1,33 @@
 @extends('layout.auth')
 
 @section('content')
-<div class="form w-100 border border-secondary rounded p-4" >
-    <form action="{{route('auth.password.update')}}" method="POST">
-        @csrf
+    <div class="auth-card">
+        <div class="brand-header">
+            <div class="brand-logo">
+                <img src="{{ asset('images/logo-zafiro.png') }}" alt="Zafiro Logo">
+            </div>
+            <h1 class="brand-title">Reset Password</h1>
+            <p class="brand-subtitle">Create a strong new password for your account</p>
+        </div>
 
-        <h1 class="text-center mt-3 mb-3">Recovery Password</h1>
+        <form action="{{ route('auth.password.update') }}" method="POST">
+            @csrf
 
-        <x-form.input label="Email" type="email" id="email" name="email" :value="$email" :readonly="true"/>
-        <x-form.input label="Password" type="password" id="password" name="password" :required="true"/>
-        <x-form.input label="Confirm Password" type="password" id="password_confirmation" name="password_confirmation" :required="true"/>
-        <x-form.input type="hidden" name="token" :value="$token"/>
+            <x-form.input label="Email Address" type="email" id="email" name="email" :value="$email" :readonly="true" />
+            <x-form.input label="New Password" type="password" id="password" name="password" :required="true" />
+            <x-form.input label="Confirm New Password" type="password" id="password_confirmation" name="password_confirmation" :required="true" />
+            <x-form.input type="hidden" name="token" :value="$token" />
 
-        <button class="btn btn-primary w-100" type="submit">Change password</button>
-        
-    </form>
-</div>
+            <button class="btn-auth-primary w-100 mt-3" type="submit">
+                <span>Update Password</span>
+            </button>
+        </form>
+
+        <div class="mt-4 pt-2 text-center border-top" style="border-color: rgba(255,255,255,0.08) !important;">
+            <a class="auth-link d-inline-flex align-items-center" href="{{ route('auth.index') }}">
+                <i class="bi bi-arrow-left me-1"></i>
+                <span>Back to login</span>
+            </a>
+        </div>
+    </div>
 @endsection

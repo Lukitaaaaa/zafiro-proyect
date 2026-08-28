@@ -22,7 +22,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
+            'login' => ['required', 'string'],
             'password' => ['required', 'min:8'],
         ];
     }
@@ -30,8 +30,7 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'El email es obligatoria.',
-            'email.email' => 'El email debe ser un correo electrónico válido.',
+            'login.required' => 'El email o nombre de usuario es obligatorio.',
             'password.required' => 'La contraseña es obligatoria.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
         ];
@@ -40,7 +39,7 @@ class LoginRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'email' => strtolower($this->email),
+            'login' => strtolower($this->login),
         ]);
     }
 }
